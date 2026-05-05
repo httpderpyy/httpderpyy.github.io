@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>httpDerpyy — Roblox Developer</title>
+<meta name="description" content="Senior Roblox developer behind Weird Gun Game (236M+ visits, Top 50 on Roblox). Specialising in cross-platform gameplay, distributed services, and high-scale experiences." />
+<meta property="og:title" content="httpDerpyy — Roblox Developer" />
+<meta property="og:description" content="Senior Roblox developer behind Weird Gun Game — 236M+ visits, Top 50 on Roblox, featured at RDC 2025." />
+<meta property="og:image" content="https://tr.rbxcdn.com/180DAY-058feb43b6697d4ff78991ab736e239b/256/256/Image/Png/noFilter" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="httpDerpyy — Roblox Developer" />
+<meta name="twitter:description" content="Senior Roblox developer behind Weird Gun Game — 236M+ visits, Top 50 on Roblox, featured at RDC 2025." />
+<meta name="twitter:image" content="https://tr.rbxcdn.com/180DAY-058feb43b6697d4ff78991ab736e239b/256/256/Image/Png/noFilter" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --bg: #06000f;
+    --purple-deep: #1a0033;
+    --purple-mid: #6b21a8;
+    --purple-bright: #a855f7;
+    --fuchsia: #e879f9;
+    --pink: #f0abfc;
+    --cyan: #67e8f9;
+    --white: #f5f0ff;
+    --star-white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HYPERDRIVE CANVAS ── */
+  #hyperdrive-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--purple-bright);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .hero-counter-label {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.55rem, 1vw, 0.75rem);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: oklch(0.72 0.12 310);
+    margin-bottom: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+
+  .hero-counter {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(3.5rem, 12vw, 10rem);
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(135deg, #ffffff 0%, #e879f9 40%, #a855f7 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px oklch(0.6 0.28 310));
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-plus {
+    font-size: clamp(2rem, 6vw, 5rem);
+    -webkit-text-fill-color: var(--fuchsia);
+    filter: drop-shadow(0 0 20px var(--fuchsia));
+  }
+
+  .hero-subtitle {
+    margin-top: 2rem;
+    font-size: clamp(1rem, 2.2vw, 1.35rem);
+    font-weight: 400;
+    color: oklch(0.82 0.08 290);
+    letter-spacing: 0.03em;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+
+  .hero-subtitle strong {
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--fuchsia), var(--purple-bright));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    background: linear-gradient(135deg, var(--purple-mid), var(--fuchsia));
+    border: none;
+    border-radius: 99px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 0 30px oklch(0.5 0.28 310 / 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    opacity: 0;
+    animation: fadeUp 1s 1.3s forwards;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 50px oklch(0.55 0.3 310 / 0.55);
+  }
+
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4ade80;
+    background: oklch(0.2 0.1 145 / 0.3);
+    border: 1px solid oklch(0.5 0.2 145 / 0.4);
+    border-radius: 99px;
+    padding: 0.15rem 0.5rem;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+
+  .live-dot {
+    width: 5px;
+    height: 5px;
+    background: #4ade80;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pulse-green 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-green {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.65); }
+  }
+
+  .hero-name {
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUpCentered 1s 2s forwards;
+    cursor: default;
+  }
+
+  @keyframes fadeUpCentered {
+    from { opacity: 0; transform: translate(-50%, 24px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+
+  .scroll-cue span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: oklch(0.55 0.1 290);
+    text-transform: uppercase;
+  }
+
+  .scroll-arrow {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-right: 2px solid var(--purple-bright);
+    border-bottom: 2px solid var(--purple-bright);
+    transform: rotate(45deg);
+    animation: bounce 1.8s ease-in-out infinite;
+    box-shadow: 4px 4px 8px oklch(0.6 0.28 300);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(6px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TRAJECTORY SECTION ── */
+  #trajectory {
+    position: relative;
+    z-index: 1;
+    min-height: 110vh;
+    padding: 6rem 0 8rem;
+  }
+
+  .section-header {
+    text-align: center;
+    padding: 0 2rem 4rem;
+  }
+
+  .section-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--purple-bright);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #ffffff 0%, #e879f9 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  #trajectory-canvas-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  #trajectory-svg {
+    width: 100%;
+    overflow: visible;
+  }
+
+  /* ── TRAJECTORY MOBILE LIST ── */
+  #trajectory-list { display: none; }
+
+  @media (max-width: 768px) {
+    #trajectory-canvas-wrap { display: none; }
+    #trajectory-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 0 1.25rem;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  }
+
+  .traj-list-item {
+    display: grid;
+    grid-template-columns: 54px 1fr 36px;
+    gap: 1rem;
+    align-items: center;
+    background: linear-gradient(135deg, oklch(0.13 0.06 295 / 0.7), oklch(0.09 0.04 295 / 0.5));
+    border: 1px solid oklch(0.3 0.12 305 / 0.4);
+    border-radius: 14px;
+    padding: 0.9rem 1rem;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.25s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .traj-list-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, oklch(0.6 0.28 310 / 0.7), transparent);
+  }
+
+  .traj-list-item:active { transform: scale(0.98); border-color: oklch(0.5 0.22 310 / 0.6); }
+
+  .traj-list-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+    background: oklch(0.18 0.08 295 / 0.7) center/cover no-repeat;
+    border: 1px solid oklch(0.35 0.15 305 / 0.5);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    color: oklch(0.4 0.1 290);
+    letter-spacing: 0.05em;
+    overflow: hidden;
+  }
+
+  .traj-list-body { min-width: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+
+  .traj-list-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .traj-list-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--fuchsia);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .traj-list-link {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple-mid), var(--fuchsia));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.65rem;
+    text-decoration: none;
+    flex-shrink: 0;
+    box-shadow: 0 0 16px oklch(0.5 0.28 310 / 0.3);
+    transition: box-shadow 0.2s;
+  }
+
+  .traj-list-link:active { box-shadow: 0 0 28px oklch(0.55 0.3 310 / 0.55); }
+
+  /* Node tooltip / expand card */
+  .node-card {
+    position: fixed;
+    z-index: 100;
+    background: oklch(0.1 0.05 295 / 0.92);
+    border: 1px solid oklch(0.5 0.2 310 / 0.6);
+    border-radius: 16px;
+    padding: 1.5rem 1.75rem;
+    width: 300px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 40px oklch(0.4 0.25 310 / 0.4), 0 20px 60px rgba(0,0,0,0.6);
+    pointer-events: all;
+    transform-origin: top left;
+    transition: opacity 0.25s, transform 0.25s;
+  }
+
+  .node-card.hidden { opacity: 0; pointer-events: none; transform: scale(0.92); }
+  .node-card.visible { opacity: 1; transform: scale(1); }
+
+  .node-card-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--purple-bright);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .node-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+
+  .node-card-visits {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--fuchsia);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .node-card-desc {
+    font-size: 0.82rem;
+    color: oklch(0.72 0.08 290);
+    line-height: 1.55;
+  }
+
+  .node-card-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    color: oklch(0.5 0.1 290);
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.25rem;
+    transition: color 0.2s;
+  }
+
+  .node-card-close:hover { color: var(--white); }
+
+  .thumb-placeholder {
+    width: 100%;
+    height: 140px;
+    border-radius: 8px;
+    background: repeating-linear-gradient(
+      45deg,
+      oklch(0.15 0.05 295),
+      oklch(0.15 0.05 295) 6px,
+      oklch(0.12 0.04 295) 6px,
+      oklch(0.12 0.04 295) 12px
+    );
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: oklch(0.4 0.08 290);
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-bottom: 1rem;
+    border: 1px solid oklch(0.3 0.1 295 / 0.4);
+    overflow: hidden;
+  }
+
+  .thumb-placeholder.has-img { color: transparent; }
+
+  .node-card-link {
+    display: inline-flex;
+    margin-top: 1rem;
+    align-items: center;
+    gap: 0.4rem;
+    background: linear-gradient(135deg, var(--purple-mid), var(--fuchsia));
+    border: none;
+    border-radius: 99px;
+    padding: 0.55rem 1.1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 20px oklch(0.5 0.28 310 / 0.3);
+  }
+  .node-card-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 30px oklch(0.55 0.3 310 / 0.5);
+  }
+
+  /* ── ACCOMPLISHMENTS ── */
+  #accomplishments {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .achievement-card {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    background: linear-gradient(135deg, oklch(0.13 0.06 295 / 0.7), oklch(0.09 0.04 295 / 0.5));
+    border: 1px solid oklch(0.3 0.12 305 / 0.4);
+    border-radius: 16px;
+    padding: 1.5rem 1.75rem;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .achievement-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, transparent, oklch(0.6 0.28 310 / 0.8), transparent);
+  }
+
+  .achievement-card:hover {
+    border-color: oklch(0.5 0.22 310 / 0.7);
+    transform: translateX(4px);
+    box-shadow: 0 0 40px oklch(0.4 0.25 310 / 0.2);
+  }
+
+  .achievement-medal {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, oklch(0.7 0.22 320), oklch(0.35 0.25 305) 70%, oklch(0.15 0.1 295));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 0 30px oklch(0.5 0.28 310 / 0.5), inset 0 0 12px oklch(0.85 0.15 320 / 0.3);
+    position: relative;
+  }
+
+  .achievement-medal::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid oklch(0.6 0.25 310 / 0.4);
+  }
+
+  .achievement-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .achievement-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--purple-bright);
+  }
+
+  .achievement-tag::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--fuchsia);
+    box-shadow: 0 0 8px var(--fuchsia);
+  }
+
+  .achievement-text {
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: oklch(0.92 0.04 290);
+    font-weight: 500;
+    text-wrap: pretty;
+  }
+
+  .achievement-text strong {
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .achievement-text em {
+    font-style: normal;
+    color: var(--fuchsia);
+    font-weight: 600;
+  }
+
+  .achievement-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: oklch(0.6 0.18 305);
+    letter-spacing: -0.02em;
+    align-self: flex-start;
+    padding-top: 0.25rem;
+  }
+
+  @media (max-width: 700px) {
+    .achievement-card {
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      padding: 1.25rem;
+    }
+    .achievement-medal { width: 44px; height: 44px; font-size: 1.2rem; }
+    .achievement-year { display: none; }
+  }
+
+  /* ── HARD SKILLS ── */
+  #skills {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 750px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+
+  .skill-card {
+    background: linear-gradient(135deg, oklch(0.13 0.06 295 / 0.7), oklch(0.09 0.04 295 / 0.5));
+    border: 1px solid oklch(0.3 0.12 305 / 0.4);
+    border-radius: 16px;
+    padding: 1.75rem;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, oklch(0.6 0.25 310 / 0.6), transparent);
+  }
+
+  .skill-card:hover {
+    border-color: oklch(0.5 0.22 310 / 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px oklch(0.4 0.25 310 / 0.2);
+  }
+
+  .skill-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .skill-card-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--white);
+    background: linear-gradient(135deg, oklch(0.3 0.18 305), oklch(0.45 0.25 320));
+    box-shadow: 0 0 20px oklch(0.5 0.25 310 / 0.4);
+  }
+
+  .skill-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--purple-bright);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: oklch(0.18 0.08 295 / 0.7);
+    border: 1px solid oklch(0.35 0.15 305 / 0.5);
+    border-radius: 8px;
+    padding: 0.45rem 0.8rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: oklch(0.85 0.05 290);
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    cursor: default;
+  }
+
+  .skill-chip:hover {
+    background: oklch(0.25 0.15 305 / 0.8);
+    border-color: var(--fuchsia);
+    color: var(--white);
+  }
+
+  .skill-chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--fuchsia);
+    box-shadow: 0 0 8px var(--fuchsia);
+    flex-shrink: 0;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  @media (max-width: 750px) {
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  .about-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .about-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background:
+      linear-gradient(135deg, oklch(0.18 0.08 295 / 0.18), oklch(0.4 0.18 310 / 0.12)),
+      url('https://tr.rbxcdn.com/30DAY-AvatarHeadshot-481430EE0F36BB9B10E3A869446C0BD2-Png/150/150/AvatarHeadshot/Webp/noFilter') center/cover no-repeat;
+    border: 2px solid oklch(0.45 0.22 310 / 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    color: oklch(0.4 0.1 290);
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 50px oklch(0.4 0.25 310 / 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, oklch(0.5 0.2 310 / 0.15), transparent 60%);
+  }
+
+  .about-handle {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .about-handle-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .about-handle-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--purple-bright);
+    letter-spacing: 0.15em;
+  }
+
+  .about-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .about-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: oklch(0.18 0.1 295 / 0.6);
+    border: 1px solid oklch(0.4 0.18 305 / 0.4);
+    border-radius: 99px;
+    padding: 0.3rem 0.8rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: oklch(0.75 0.12 295);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .about-quote {
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    text-wrap: pretty;
+  }
+
+  .about-quote em {
+    font-style: normal;
+    background: linear-gradient(90deg, #e879f9, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .about-body {
+    font-size: 1rem;
+    color: oklch(0.72 0.07 290);
+    line-height: 1.75;
+    text-wrap: pretty;
+  }
+
+  .about-body strong {
+    color: oklch(0.88 0.1 290);
+    font-weight: 600;
+  }
+
+  .about-divider {
+    width: 3rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--fuchsia), transparent);
+    border-radius: 99px;
+  }
+
+  .about-stats-row {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .about-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+  .about-stat-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff, #e879f9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .about-stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: oklch(0.5 0.1 290);
+  }
+
+  /* Section divider line */
+  .section-rule {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .section-rule hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, oklch(0.35 0.12 295 / 0.6) 30%, oklch(0.35 0.12 295 / 0.6) 70%, transparent);
+  }
+
+  /* ── FEATURED GAME ── */  #featured {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (max-width: 700px) {
+    .featured-grid { grid-template-columns: 1fr; }
+  }
+
+  .featured-thumb {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 16px;
+    background: repeating-linear-gradient(
+      45deg,
+      oklch(0.14 0.06 295),
+      oklch(0.14 0.06 295) 8px,
+      oklch(0.11 0.04 295) 8px,
+      oklch(0.11 0.04 295) 16px
+    );
+    background-size: cover;
+    background-position: center;
+    border: 1px solid oklch(0.35 0.18 310 / 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: oklch(0.4 0.08 290);
+    letter-spacing: 0.1em;
+    box-shadow: 0 0 60px oklch(0.4 0.25 310 / 0.25), 0 30px 80px rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .featured-thumb.has-img { color: transparent; }
+
+  .featured-thumb.has-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, transparent 50%, oklch(0.1 0.06 295 / 0.4));
+    pointer-events: none;
+  }
+
+  .featured-info { display: flex; flex-direction: column; gap: 1rem; }
+
+  .featured-badge {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.4rem;
+    background: oklch(0.25 0.15 310 / 0.4);
+    border: 1px solid oklch(0.5 0.25 310 / 0.5);
+    border-radius: 99px;
+    padding: 0.3rem 0.9rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--fuchsia);
+    text-transform: uppercase;
+  }
+
+  .featured-title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+  }
+
+  .featured-desc {
+    font-size: 0.95rem;
+    color: oklch(0.72 0.07 290);
+    line-height: 1.65;
+  }
+
+  .featured-stats {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .stat-block { display: flex; flex-direction: column; gap: 0.2rem; }
+  .stat-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--fuchsia);
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: oklch(0.55 0.1 290);
+  }
+
+  .play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, var(--purple-mid), var(--fuchsia));
+    border: none;
+    border-radius: 99px;
+    padding: 0.85rem 2rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    width: fit-content;
+    box-shadow: 0 0 30px oklch(0.5 0.28 310 / 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .play-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 50px oklch(0.55 0.3 310 / 0.55);
+  }
+
+  /* Direct Impact */
+  #impact {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 800px) {
+    .impact-grid { grid-template-columns: 1fr; }
+  }
+
+  .impact-card {
+    background: linear-gradient(135deg, oklch(0.13 0.06 295 / 0.74), oklch(0.09 0.04 295 / 0.55));
+    border: 1px solid oklch(0.3 0.12 305 / 0.44);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .impact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 0%, oklch(0.55 0.26 310 / 0.1), transparent 55%);
+    pointer-events: none;
+  }
+
+  .impact-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .impact-company {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fuchsia);
+  }
+
+  .impact-project {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .impact-stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem 2rem;
+  }
+
+  .impact-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .impact-stat-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff 0%, var(--fuchsia) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .impact-stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: oklch(0.55 0.1 290);
+  }
+
+  .impact-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    border-top: 1px solid oklch(0.3 0.12 305 / 0.3);
+    padding-top: 1.25rem;
+  }
+
+  .impact-bullets li {
+    font-size: 0.88rem;
+    color: oklch(0.76 0.07 290);
+    line-height: 1.6;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .impact-bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--fuchsia);
+    font-weight: 700;
+  }
+
+  .impact-bullets li strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* Contact */
+  #contact {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .contact-shell {
+    display: grid;
+    grid-template-columns: 0.75fr 1.25fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+
+  .contact-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-kicker {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fuchsia);
+  }
+
+  .contact-text {
+    font-size: clamp(1.35rem, 3vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--white);
+    text-wrap: pretty;
+  }
+
+  .contact-subtext {
+    font-size: 0.98rem;
+    color: oklch(0.72 0.07 290);
+    line-height: 1.7;
+    max-width: 28rem;
+  }
+
+  .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .contact-card {
+    min-height: 112px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.4rem;
+    background: linear-gradient(135deg, oklch(0.13 0.06 295 / 0.74), oklch(0.09 0.04 295 / 0.55));
+    border: 1px solid oklch(0.3 0.12 305 / 0.44);
+    border-radius: 16px;
+    padding: 1.15rem 1.35rem;
+    color: var(--white);
+    text-decoration: none;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 10%, oklch(0.6 0.26 310 / 0.18), transparent 42%);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .contact-card:hover {
+    border-color: oklch(0.55 0.24 310 / 0.72);
+    transform: translateY(-3px);
+    box-shadow: 0 0 42px oklch(0.42 0.25 310 / 0.24);
+  }
+
+  .contact-card:hover::before { opacity: 1; }
+
+  .contact-card-top,
+  .contact-card-bottom {
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-card-top {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 1rem;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    color: var(--white);
+    background: linear-gradient(135deg, oklch(0.3 0.18 305), oklch(0.47 0.25 320));
+    box-shadow: 0 0 24px oklch(0.5 0.25 310 / 0.36);
+    grid-column: 1;
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+
+  .contact-icon svg {
+    width: 23px;
+    height: 23px;
+    stroke-width: 1.8;
+  }
+
+  .contact-label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--purple-bright);
+    margin-bottom: 0.35rem;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .contact-value {
+    display: block;
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    font-weight: 700;
+    color: var(--white);
+    overflow-wrap: anywhere;
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .contact-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: oklch(0.78 0.12 300);
+  }
+
+  .contact-action svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  @media (max-width: 900px) {
+    .contact-shell {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 650px) {
+    #contact { padding: 5rem 1.25rem; }
+    .contact-card {
+      min-height: 124px;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.15rem;
+    }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem 2rem 4rem;
+    border-top: 1px solid oklch(0.25 0.08 295 / 0.4);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: oklch(0.4 0.07 290);
+    letter-spacing: 0.15em;
+  }
+
+  /* Nebula overlay behind content sections */
+  .nebula-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 30%, oklch(0.18 0.12 300 / 0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 80% 70%, oklch(0.15 0.14 280 / 0.3) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 60% 10%, oklch(0.2 0.1 310 / 0.2) 0%, transparent 70%);
+  }
+
+  /* ── SITE NAV ── */
+  .nebula-overlay::after {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background:
+      linear-gradient(115deg, transparent 0 44%, oklch(0.84 0.15 220 / 0.16) 49%, transparent 54%),
+      linear-gradient(115deg, transparent 0 58%, oklch(0.72 0.2 315 / 0.11) 61%, transparent 65%);
+    background-size: 260px 260px, 420px 420px;
+    mix-blend-mode: screen;
+    opacity: 0.34;
+    transform: translate3d(-6%, -6%, 0);
+    animation: dataDrift 24s linear infinite;
+  }
+
+  /* Motion polish */
+  .hero-counter {
+    background-size: 180% 180%;
+    animation: fadeUp 1s 0.6s forwards, counterShimmer 6s 1.7s ease-in-out infinite;
+  }
+
+  .section-header {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .section-title {
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    bottom: -0.55rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--fuchsia), transparent);
+    box-shadow: 0 0 16px oklch(0.78 0.17 220 / 0.45);
+    transform: scaleX(0.32);
+    transform-origin: center;
+    opacity: 0.72;
+    animation: titleScan 4.8s ease-in-out infinite;
+  }
+
+  .section-rule hr {
+    background-size: 220% 100%;
+    animation: rulePulse 7s ease-in-out infinite;
+  }
+
+  .skill-card,
+  .achievement-card,
+  .contact-card,
+  .impact-card,
+  .featured-thumb {
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    --tilt-z: 0px;
+    --tilt-lift: 0px;
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0, var(--tilt-lift), var(--tilt-z));
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: transform 0.24s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    will-change: transform;
+  }
+
+  .skill-card:hover,
+  .contact-card:hover,
+  .impact-card:hover,
+  .featured-thumb:hover {
+    --tilt-lift: -5px;
+    --tilt-z: 10px;
+  }
+
+  .achievement-card:hover {
+    --tilt-z: 8px;
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(4px, 0, var(--tilt-z));
+  }
+
+  .skill-card::after,
+  .achievement-card::after,
+  .contact-card::after,
+  .impact-card::after {
+    content: '';
+    position: absolute;
+    top: -45%;
+    bottom: -45%;
+    left: -38%;
+    width: 32%;
+    background: linear-gradient(90deg, transparent, oklch(0.86 0.15 220 / 0.24), oklch(0.76 0.2 315 / 0.18), transparent);
+    transform: rotate(18deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .skill-card:hover::after,
+  .achievement-card:hover::after,
+  .contact-card:hover::after,
+  .impact-card:hover::after {
+    left: 112%;
+    opacity: 1;
+    transition: left 0.78s cubic-bezier(0.18, 0.84, 0.32, 1), opacity 0.22s ease;
+  }
+
+  .featured-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(120deg, transparent 18%, oklch(0.84 0.15 220 / 0.24), transparent 34%),
+      repeating-linear-gradient(0deg, transparent 0 13px, oklch(0.8 0.1 220 / 0.08) 14px 15px);
+    transform: translateX(-120%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .featured-thumb:hover::before {
+    transform: translateX(120%);
+    opacity: 1;
+    transition: transform 0.95s cubic-bezier(0.18, 0.84, 0.32, 1), opacity 0.2s ease;
+  }
+
+  .about-avatar {
+    animation: avatarFloat 6s ease-in-out infinite;
+  }
+
+  .about-avatar::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border-radius: 50%;
+    border: 1px solid oklch(0.78 0.16 220 / 0.42);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    animation: avatarOrbit 8s linear infinite;
+    pointer-events: none;
+  }
+
+  .revealable {
+    --reveal-y: 28px;
+    --reveal-scale: 0.985;
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(var(--reveal-y)) scale(var(--reveal-scale));
+    transition:
+      opacity 0.75s ease,
+      filter 0.75s ease,
+      transform 0.75s cubic-bezier(0.18, 0.84, 0.32, 1);
+    transition-delay: calc(var(--reveal-index, 0) * 80ms);
+  }
+
+  .revealable.is-visible {
+    --reveal-y: 0px;
+    --reveal-scale: 1;
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(var(--reveal-y)) scale(var(--reveal-scale));
+  }
+
+  .skill-card.revealable,
+  .contact-card.revealable,
+  .impact-card.revealable,
+  .featured-thumb.revealable {
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0, calc(var(--tilt-lift) + var(--reveal-y)), var(--tilt-z)) scale(var(--reveal-scale));
+  }
+
+  .achievement-card.revealable {
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0, var(--reveal-y), var(--tilt-z)) scale(var(--reveal-scale));
+  }
+
+  .achievement-card.revealable:hover {
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(4px, var(--reveal-y), var(--tilt-z)) scale(var(--reveal-scale));
+  }
+
+  @keyframes dataDrift {
+    from { transform: translate3d(-6%, -6%, 0); }
+    to { transform: translate3d(6%, 6%, 0); }
+  }
+
+  @keyframes counterShimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes titleScan {
+    0%, 100% { transform: scaleX(0.32); opacity: 0.45; }
+    50% { transform: scaleX(1); opacity: 0.95; }
+  }
+
+  @keyframes rulePulse {
+    0%, 100% { background-position: 0% 50%; opacity: 0.72; }
+    50% { background-position: 100% 50%; opacity: 1; }
+  }
+
+  @keyframes avatarFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes avatarOrbit {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+
+    .revealable {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  #site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.75rem 1.25rem 0.75rem 1rem;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  #site-nav.nav-hidden {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+
+  .nav-pill {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: oklch(0.1 0.06 295 / 0.75);
+    border: 1px solid oklch(0.32 0.14 305 / 0.5);
+    border-radius: 99px;
+    padding: 0.35rem 0.35rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 32px oklch(0.08 0.04 295 / 0.6);
+    pointer-events: auto;
+  }
+
+  .nav-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: oklch(0.6 0.08 290);
+    text-decoration: none;
+    padding: 0.4rem 0.85rem;
+    border-radius: 99px;
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    color: var(--white);
+    background: oklch(0.22 0.1 300 / 0.5);
+  }
+
+  .nav-link.nav-active {
+    color: var(--white);
+    background: linear-gradient(135deg, oklch(0.3 0.18 305), oklch(0.42 0.24 318));
+    box-shadow: 0 0 14px oklch(0.5 0.25 310 / 0.35);
+  }
+
+  .nav-link.nav-cta {
+    color: var(--white);
+    background: linear-gradient(135deg, var(--fuchsia), oklch(0.52 0.28 318));
+    box-shadow: 0 0 18px oklch(0.55 0.28 310 / 0.45);
+    margin-left: 0;
+    transition: color 0.2s, background 0.2s, margin-left 0.35s ease;
+  }
+
+  .nav-link.nav-cta:hover {
+    background: linear-gradient(135deg, oklch(0.72 0.28 310), oklch(0.58 0.3 325));
+    box-shadow: 0 0 26px oklch(0.6 0.3 310 / 0.55);
+  }
+
+  /* Desktop: collapsed by default, expand on hover */
+  @media (min-width: 641px) {
+    .nav-link:not(.nav-cta) {
+      max-width: 0;
+      opacity: 0;
+      padding-left: 0;
+      padding-right: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition: max-width 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
+    }
+
+    .nav-pill:hover .nav-link:not(.nav-cta) {
+      max-width: 150px;
+      opacity: 1;
+      padding-left: 0.85rem;
+      padding-right: 0.85rem;
+      pointer-events: auto;
+    }
+
+    .nav-pill:hover .nav-link.nav-cta {
+      margin-left: 0.25rem;
+    }
+  }
+
+  /* Mobile: only Home + Contact */
+  @media (max-width: 640px) {
+    #site-nav { justify-content: center; }
+    .nav-link:not([data-section="hero"]):not(.nav-cta) {
+      display: none;
+    }
+    .nav-link { padding: 0.4rem 0.85rem; }
+    .nav-link.nav-cta { margin-left: 0.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="site-nav" aria-label="Site navigation">
+  <div class="nav-pill">
+    <a class="nav-link nav-active" href="#hero"      data-section="hero"          data-icon="⌂"><span>Home</span></a>
+    <a class="nav-link"            href="#trajectory" data-section="trajectory"    data-icon="🚀"><span>Journey</span></a>
+    <a class="nav-link"            href="#skills"     data-section="skills"        data-icon="⚙"><span>Skills</span></a>
+    <a class="nav-link"            href="#about"      data-section="about"         data-icon="◎"><span>About</span></a>
+    <a class="nav-link"            href="#featured"   data-section="featured"      data-icon="★"><span>Games</span></a>
+    <a class="nav-link"            href="#accomplishments" data-section="accomplishments" data-icon="🏆"><span>Wins</span></a>
+    <a class="nav-link"            href="#impact"     data-section="impact"        data-icon="📈"><span>Impact</span></a>
+    <a class="nav-link nav-cta"    href="#contact"    data-section="contact"       data-icon="✉"><span>Contact</span></a>
+  </div>
+</nav>
+
+<!-- Fixed background canvas -->
+<canvas id="hyperdrive-canvas"></canvas>
+<div class="nebula-overlay"></div>
+
+<!-- Hero -->
+<section id="hero">
+  <p class="hero-eyebrow">Roblox Developer Portfolio</p>
+  <p class="hero-counter-label">Total visits across all experiences</p>
+  <div class="hero-counter" id="visit-counter">0<span class="hero-plus">+</span></div>
+  <p class="hero-subtitle">
+   Every visit here started with a build. <strong>Ready to add yours?</strong>
+  </p>
+  <a class="hero-cta" href="#contact">Get in Touch</a>
+  <div class="scroll-cue">
+    <span>Scroll to explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- Trajectory -->
+<section id="trajectory">
+  <div class="section-header">
+    <p class="section-eyebrow">The Journey</p>
+    <h2 class="section-title">Full Throttle. Every Launch.</h2>
+  </div>
+  <div id="trajectory-canvas-wrap">
+    <svg id="trajectory-svg" id="traj-svg"></svg>
+  </div>
+  <div id="trajectory-list"></div>
+</section>
+
+<!-- Hard Skills -->
+<div class="section-rule"><hr /></div>
+<section id="skills">
+  <div class="section-header" style="padding-bottom: 0;">
+    <p class="section-eyebrow">The Toolkit</p>
+    <h2 class="section-title">Hard Skills</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-card-icon">R</div>
+        <span class="skill-card-title">Roblox Tooling</span>
+      </div>
+      <div class="skill-chips">
+        <span class="skill-chip"><span class="skill-chip-dot"></span>Rojo</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>Wally</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>React</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>OOP</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-card-icon">⚡</div>
+        <span class="skill-card-title">DevOps &amp; Infra</span>
+      </div>
+      <div class="skill-chips">
+        <span class="skill-chip"><span class="skill-chip-dot"></span>GitHub</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>CI/CD</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>Docker</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>VPS</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-card-icon">{ }</div>
+        <span class="skill-card-title">Languages</span>
+      </div>
+      <div class="skill-chips">
+        <span class="skill-chip"><span class="skill-chip-dot"></span>JavaScript</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>Java</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>Python</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>GoLang</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>C++</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>C</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>SQL</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-header">
+        <div class="skill-card-icon">⌥</div>
+        <span class="skill-card-title">Backend &amp; Data</span>
+      </div>
+      <div class="skill-chips">
+        <span class="skill-chip"><span class="skill-chip-dot"></span>Node.js</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>MongoDB</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>PostgreSQL</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>AWS</span>
+        <span class="skill-chip"><span class="skill-chip-dot"></span>GCS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<div class="section-rule"><hr /></div>
+<section id="about">
+  <div class="about-grid">
+    <div class="about-left">
+      <div class="about-avatar" aria-label="httpDerpyy Roblox avatar"></div>
+      <div class="about-handle">
+        <span class="about-handle-name">httpDerpyy</span>
+        <span class="about-handle-tag">ROBLOX DEVELOPER</span>
+      </div>
+      <div class="about-pills">
+        <span class="about-pill">System Design</span>
+        <span class="about-pill">Luau / Lua</span>
+        <span class="about-pill">OOP &amp; FP</span>
+        <span class="about-pill">Scalable Architecture</span>
+        <span class="about-pill">Game Design</span>
+        <span class="about-pill">Professional Tooling</span>
+      </div>
+    </div>
+    <div class="about-right">
+      <h2 class="about-quote">Not just a programmer —<br /><em>a builder of scale.</em></h2>
+      <div class="about-divider"></div>
+      <p class="about-body">
+        Driven by a deep passion for the craft of programming, I'm constantly pushing the boundaries of what's possible on Roblox, and beyond. Where others see scripts, I see <strong>systems</strong>. Where others see games, I see <strong>products</strong>.
+      </p>
+      <p class="about-body">
+        Armed with a thorough understanding of <strong>system design, programming paradigms</strong>, and professional development tooling, I don't just ship games, I architect experiences built to scale. Experiences that can sustain millions of concurrent users, evolve with meaningful updates, and hold up long after launch.
+      </p>
+      <div class="about-stats-row">
+        <div class="about-stat">
+          <span class="about-stat-val" id="about-total-visits">300M+</span>
+          <span class="about-stat-label">Total Visits</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-val" id="about-experience-count">7+</span>
+          <span class="about-stat-label">Experiences</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-rule"><hr /></div>
+
+<!-- Featured Game -->
+<section id="featured">
+  <div class="section-header">
+    <p class="section-eyebrow">Flagship Experience</p>
+    <h2 class="section-title">Featured Game</h2>
+  </div>
+  <div class="featured-grid">
+    <div class="featured-thumb has-img" id="featured-thumb" style="background-image:url('https://tr.rbxcdn.com/180DAY-058feb43b6697d4ff78991ab736e239b/256/256/Image/Png/noFilter');background-size:cover;background-position:center;"></div>
+    <div class="featured-info">
+      <span class="featured-badge">⭐ #1 Experience</span>
+      <h3 class="featured-title" id="featured-title">[3D!] Weird<br />Gun Game</h3>
+      <p class="featured-desc" id="featured-desc">
+        A genre-bending 3D shooter that broke through to the Roblox front page — combining fast-paced gameplay with a unique visual style that kept millions of players coming back.
+      </p>
+      <div class="featured-stats">
+        <div class="stat-block">
+          <span class="stat-val" id="featured-visits">235M+</span>
+          <span class="stat-label">Visits</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-val" id="featured-favorites">—</span>
+          <span class="stat-label">Favourites</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-val" id="featured-playing">—</span>
+          <span class="stat-label">Playing Now <span class="live-badge" id="live-badge" style="display:none"><span class="live-dot"></span>LIVE</span></span>
+        </div>
+      </div>
+      <button class="play-btn" id="featured-play" onclick="window.open('https://www.roblox.com/games/94590879393563','_blank')">▶ &nbsp;Play on Roblox</button>
+    </div>
+  </div>
+</section>
+
+<!-- Accomplishments -->
+<div class="section-rule"><hr /></div>
+<section id="accomplishments">
+  <div class="section-header" style="padding-bottom: 0;">
+    <p class="section-eyebrow">Milestones</p>
+    <h2 class="section-title">Accomplishments</h2>
+  </div>
+  <div class="achievements-list">
+    <div class="achievement-card">
+      <div class="achievement-medal">🏆</div>
+      <div class="achievement-content">
+        <span class="achievement-tag">RDC California · Featured</span>
+        <p class="achievement-text">
+          Project featured at <strong>RDC 2025</strong> by <em>Greg Hartrell</em> — former Director of Product for Android &amp; Google.
+        </p>
+      </div>
+      <div class="achievement-year">'25</div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-medal">⭐</div>
+      <div class="achievement-content">
+        <span class="achievement-tag">Roblox Top 50 · Engagement</span>
+        <p class="achievement-text">
+          <strong>Weird Gun Game</strong> ranked among the <em>Top 50 most engaging experiences</em> on the platform.
+        </p>
+      </div>
+      <div class="achievement-year">'25</div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-medal">🚀</div>
+      <div class="achievement-content">
+        <span class="achievement-tag">Gamescom Latam · Invited</span>
+        <p class="achievement-text">
+          Invited to <strong>Gamescom Latam 2026</strong> for a meeting with <em>Lauren Cheatham</em>, Head of Innovation.
+        </p>
+      </div>
+      <div class="achievement-year">'26</div>
+    </div>
+  </div>
+</section>
+
+<!-- Direct Impact -->
+<div class="section-rule"><hr /></div>
+<section id="impact">
+  <div class="section-header" style="padding-bottom: 0;">
+    <p class="section-eyebrow">By The Numbers</p>
+    <h2 class="section-title">Direct Impact</h2>
+  </div>
+  <div class="impact-grid">
+
+    <div class="impact-card">
+      <div class="impact-card-header">
+        <span class="impact-company">Redscape Interactive</span>
+        <h3 class="impact-project">Weird Gun Game</h3>
+      </div>
+      <div class="impact-stats-row">
+        <div class="impact-stat">
+          <span class="impact-stat-value">30×</span>
+          <span class="impact-stat-label">MAU Growth</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-stat-value">+37%</span>
+          <span class="impact-stat-label">Cross-Platform CCU</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-stat-value">30K+</span>
+          <span class="impact-stat-label">Concurrent Users</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-stat-value">+23%</span>
+          <span class="impact-stat-label">Player Retention</span>
+        </div>
+      </div>
+      <ul class="impact-bullets">
+        <li>Architected cross-platform runtime for PC, mobile, and controller with modular input abstraction layers.</li>
+        <li>Developed ray-based adaptive aim-assist normalizing precision across controller, touch, and mouse.</li>
+        <li>Engineered distributed global leaderboard scaling reliably to <strong>30,000+ concurrent users</strong>.</li>
+        <li>Built automated testing infrastructure reducing regressions and accelerating feature delivery.</li>
+        <li>Integrated AI-assisted workflows (CodeRabbit, Claude Code) into CI/CD pipelines.</li>
+        <li>Featured at <strong>RDC 2025</strong> by Greg Hartrell as a model for innovation in the shooter genre.</li>
+        <li>Ranked among the <strong>Top 50 most engaging experiences</strong> on Roblox.</li>
+      </ul>
+    </div>
+
+    <div class="impact-card">
+      <div class="impact-card-header">
+        <span class="impact-company">Darkonix LLC</span>
+        <h3 class="impact-project">Bloxston Mystery</h3>
+      </div>
+      <div class="impact-stats-row">
+        <div class="impact-stat">
+          <span class="impact-stat-value">−55%</span>
+          <span class="impact-stat-label">Matchmaking Latency</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-stat-value">+15%</span>
+          <span class="impact-stat-label">CCU</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-stat-value">≤5s</span>
+          <span class="impact-stat-label">Queue at 1K+ Players</span>
+        </div>
+      </div>
+      <ul class="impact-bullets">
+        <li>Architected distributed global matchmaking with strong consistency guarantees for cross-server queues.</li>
+        <li>Implemented Bully-based leader election for concurrency-safe coordination under high load.</li>
+        <li>Maintained <strong>≤5s queue times</strong> at 1,000+ concurrent players while cutting latency by 55%.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- Contact -->
+<div class="section-rule"><hr /></div>
+<section id="contact">
+  <div class="section-header" style="padding-bottom: 0;">
+    <p class="section-eyebrow">Open Comms</p>
+    <h2 class="section-title">Contact Me</h2>
+  </div>
+  <div class="contact-shell">
+    <div class="contact-copy">
+      <span class="contact-kicker">Ready for the next build</span>
+      <p class="contact-text">Have a project, collaboration, or Roblox idea in orbit?</p>
+      <p class="contact-subtext">
+        Reach out through the channel that works best for you. I am always open to serious game projects, systems work, and interesting technical challenges. I could be the missing link in your company between you and a major success.
+      </p>
+    </div>
+    <div class="contact-grid" aria-label="Contact links">
+      <a class="contact-card" href="mailto:httpderpyy@gmail.com" aria-label="Email httpderpyy@gmail.com">
+        <span class="contact-card-top">
+          <span class="contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <path d="m3 7 9 6 9-6"></path>
+            </svg>
+          </span>
+          <span class="contact-label">Email</span>
+          <span class="contact-value">httpderpyy@gmail.com</span>
+        </span>
+        <span class="contact-card-bottom">
+          <span class="contact-action">
+            Send message
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7"></path>
+              <path d="M7 7h10v10"></path>
+            </svg>
+          </span>
+        </span>
+      </a>
+      <div class="contact-card" role="group" aria-label="Discord handle httpderpyy">
+        <span class="contact-card-top">
+          <span class="contact-icon" aria-hidden="true">
+            <img src="https://cdn.creazilla.com/icons/3242722/discord-icon-lg.png" width="26" height="26" style="object-fit:contain;filter:brightness(0) invert(1);" alt="">
+          </span>
+          <span class="contact-label">Discord</span>
+          <span class="contact-value">httpderpyy</span>
+        </span>
+        <span class="contact-card-bottom">
+          <span class="contact-action">Add on Discord</span>
+        </span>
+      </div>
+      <a class="contact-card" href="https://www.roblox.com/users/profile?username=httpDerpyy" target="_blank" rel="noopener" aria-label="Roblox profile for httpDerpyy">
+        <span class="contact-card-top">
+          <span class="contact-icon" aria-hidden="true">
+            <img src="https://www.svgrepo.com/show/504813/roblox.svg" width="26" height="26" style="object-fit:contain;filter:brightness(0) invert(1);" alt="">
+          </span>
+          <span class="contact-label">Roblox</span>
+          <span class="contact-value">httpDerpyy</span>
+        </span>
+        <span class="contact-card-bottom">
+          <span class="contact-action">
+            View profile
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 17 17 7"></path>
+              <path d="M7 7h10v10"></path>
+            </svg>
+          </span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 httpDerpyy &nbsp;·&nbsp; Roblox Developer &nbsp;·&nbsp; All rights reserved</p>
+</footer>
+
+<!-- Node info card (managed by JS) -->
+<div class="node-card hidden" id="node-card">
+  <button class="node-card-close" id="node-card-close">✕</button>
+  <div class="thumb-placeholder" id="nc-thumb">game thumbnail</div>
+  <p class="node-card-year" id="nc-year">2020</p>
+  <p class="node-card-title" id="nc-title">Game Title</p>
+  <p class="node-card-visits" id="nc-visits">🚀 0 visits</p>
+  <p class="node-card-desc" id="nc-desc">Description goes here.</p>
+  <a class="node-card-link" id="nc-link" href="#" target="_blank" rel="noopener">▶ View on Roblox</a>
+</div>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<script type="text/babel">
+// ── HYPERDRIVE CANVAS ──────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('hyperdrive-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [], animFrame;
+  let speed = 0; // 0–1, driven by scroll + counter animation
+  let targetSpeed = 1;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function randomStar() {
+    const angle = Math.random() * Math.PI * 2;
+    const r = Math.random() * 0.5 + 0.01;
+    return {
+      angle,
+      r,       // normalized 0–1 distance from center
+      len: Math.random() * 0.002 + 0.001,
+      speed: Math.random() * 0.004 + 0.001,
+      hue: Math.random() > 0.7 ? 310 + Math.random() * 40 - 20 : 260 + Math.random() * 40,
+      alpha: Math.random() * 0.6 + 0.3,
+    };
+  }
+
+  function initStars(n) {
+    stars = [];
+    for (let i = 0; i < n; i++) stars.push(randomStar());
+  }
+
+  function drawStar(s, spd) {
+    const cx = W / 2, cy = H / 2;
+    const stretchFactor = 1 + spd * 18;
+    const x = cx + Math.cos(s.angle) * s.r * W * 0.6;
+    const y = cy + Math.sin(s.angle) * s.r * H * 0.6;
+    const tailX = cx + Math.cos(s.angle) * (s.r - s.len * stretchFactor) * W * 0.6;
+    const tailY = cy + Math.sin(s.angle) * (s.r - s.len * stretchFactor) * H * 0.6;
+
+    const grad = ctx.createLinearGradient(tailX, tailY, x, y);
+    grad.addColorStop(0, `hsla(${s.hue}, 90%, 75%, 0)`);
+    grad.addColorStop(1, `hsla(${s.hue}, 90%, 85%, ${s.alpha * Math.min(spd * 2, 1)})`);
+
+    ctx.beginPath();
+    ctx.moveTo(tailX, tailY);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 1 + spd * 1.5;
+    ctx.stroke();
+
+    // star dot
+    if (spd < 0.3) {
+      ctx.beginPath();
+      ctx.arc(x, y, 1.2, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${s.hue}, 90%, 90%, ${s.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  function tick() {
+    // Lerp speed
+    speed += (targetSpeed - speed) * 0.015;
+
+    ctx.fillStyle = `rgba(6, 0, 15, ${0.12 + speed * 0.08})`;
+    ctx.fillRect(0, 0, W, H);
+
+    for (let s of stars) {
+      drawStar(s, speed);
+      s.r += s.speed * (0.1 + speed * 0.9);
+      if (s.r > 1.2) {
+        Object.assign(s, randomStar());
+        s.r = 0.01;
+      }
+    }
+
+    animFrame = requestAnimationFrame(tick);
+  }
+
+  resize();
+  initStars(320);
+  tick();
+  window.addEventListener('resize', () => { resize(); });
+
+  // Pause when tab hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(animFrame);
+    } else {
+      tick();
+    }
+  });
+
+  // Expose speed setter
+  window.__setHyperdriveSpeed = (v) => { targetSpeed = Math.max(0, Math.min(1, v)); };
+  window.__hyperdriveSpeedUp = () => { targetSpeed = 1; };
+  window.__hyperdriveSlowDown = () => { targetSpeed = 0.08; };
+})();
+
+// ── VISIT COUNTER ──────────────────────────────────────────────────
+(function() {
+  const el = document.getElementById('visit-counter');
+  let TARGET = 277_000_000;
+  let DURATION = 3800; // ms
+  let started = false;
+
+  // Silent update — just refresh displayed number, no re-animation, no hyperdrive
+  window.__updateCounterTarget = (n) => {
+    if (started) {
+      TARGET = n;
+      el.innerHTML = formatCount(n) + '<span class="hero-plus">+</span>';
+    } else {
+      TARGET = n;
+    }
+  };
+
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  function formatCount(n) {
+    if (n >= 1_000_000) {
+      return (n / 1_000_000).toFixed(n < 10_000_000 ? 1 : 0) + 'M';
+    } else if (n >= 1_000) {
+      return (n / 1_000).toFixed(0) + 'K';
+    }
+    return Math.floor(n).toLocaleString();
+  }
+
+  function startCounter() {
+    if (started) return;
+    started = true;
+    window.__hyperdriveSpeedUp();
+
+    const start = performance.now();
+    function frame(now) {
+      const t = Math.min((now - start) / DURATION, 1);
+      const val = Math.floor(easeOutExpo(t) * TARGET);
+      el.innerHTML = formatCount(val) + '<span class="hero-plus">+</span>';
+
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        el.innerHTML = formatCount(TARGET) + '<span class="hero-plus">+</span>';
+        // Slow down after counter completes
+        setTimeout(() => window.__hyperdriveSlowDown(), 600);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // Start after a short delay (let hero fade in)
+  setTimeout(startCounter, 1200);
+})();
+
+// ── SCROLL → HYPERDRIVE SPEED ──────────────────────────────────────
+(function() {
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+    // While in hero: slow; scrolling away speeds up briefly
+    if (scrollY < vh * 0.5) {
+      window.__setHyperdriveSpeed(0.08);
+    } else if (scrollY < vh * 1.5) {
+      const t = (scrollY - vh * 0.5) / vh;
+      window.__setHyperdriveSpeed(0.08 + t * 0.2);
+    } else {
+      window.__setHyperdriveSpeed(0.12);
+    }
+  }, { passive: true });
+})();
+
+// ── DYNAMIC UPDATE BRIDGES (featured game + about stats) ──────────
+window.__updateFeatured = (exp) => {
+  const titleEl = document.getElementById('featured-title');
+  const descEl = document.getElementById('featured-desc');
+  const visitsEl = document.getElementById('featured-visits');
+  const favEl = document.getElementById('featured-favorites');
+  const playEl = document.getElementById('featured-playing');
+  const thumbEl = document.getElementById('featured-thumb');
+  const playBtn = document.getElementById('featured-play');
+
+  if (titleEl) titleEl.textContent = exp.title;
+  if (descEl) {
+    const d = (exp.desc || '').trim();
+    descEl.textContent = d.length > 280 ? d.slice(0, 277) + '…' : (d || 'A flagship Roblox experience.');
+  }
+  if (visitsEl) visitsEl.textContent = formatLargeNumber(exp.visits);
+  if (favEl) favEl.textContent = formatLargeNumber(exp.favorites);
+  if (playEl) playEl.textContent = exp.playing.toLocaleString();
+  const liveBadge = document.getElementById('live-badge');
+  if (liveBadge) liveBadge.style.display = exp.playing > 0 ? 'inline-flex' : 'none';
+  if (playBtn) playBtn.onclick = () => window.open(exp.url, '_blank');
+
+  // Fetch a higher-res thumbnail for the featured tile
+  if (thumbEl) {
+    const setThumb = (url) => {
+      if (!url) return;
+      thumbEl.style.backgroundImage = `url("${url}")`;
+      thumbEl.classList.add('has-img');
+    };
+    if (exp.universeId) {
+      const url = `https://thumbnails.roblox.com/v1/games/icons?universeIds=${exp.universeId}&size=512x512&format=Png&isCircular=false`;
+      const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+        url,
+      ];
+      (async () => {
+        for (const u of proxies) {
+          try {
+            const r = await fetch(u, { mode: 'cors' });
+            if (!r.ok) continue;
+            const text = await r.text();
+            const data = JSON.parse(text);
+            const img = data.data?.[0]?.imageUrl;
+            if (img) { setThumb(img); return; }
+          } catch (e) { /* try next */ }
+        }
+        setThumb(exp.thumbnail);
+      })();
+    } else {
+      setThumb(exp.thumbnail);
+    }
+  }
+};
+
+window.__updateAboutStats = (totalVisits, expCount) => {
+  const totalEl = document.getElementById('about-total-visits');
+  const countEl = document.getElementById('about-experience-count');
+  if (totalEl) totalEl.textContent = formatLargeNumber(totalVisits) + '+';
+  if (countEl) countEl.textContent = expCount + '+';
+};
+
+function formatLargeNumber(n) {
+  if (!n) return '—';
+  if (n >= 1_000_000_000) return (n / 1_000_000_000).toFixed(1).replace(/\.0$/, '') + 'B';
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(n < 10_000_000 ? 1 : 0).replace(/\.0$/, '') + 'M';
+  if (n >= 1_000) return Math.round(n / 1_000) + 'K';
+  return String(n);
+}
+
+// ── STAR MAP TRAJECTORY ────────────────────────────────────────────
+(async function() {
+  const EXPERIENCES_BASE = [
+    {
+      placeId: 94590879393563,
+      universeId: 7115773109,
+      title: '[3D!] Weird Gun Game',
+      visits: 236066287,
+      playing: 2817,
+      favorites: 915378,
+      genre: 'All',
+      desc: '🔫 Forge chaotic creations by fusing gun parts from different weapons and dominate the arena with the weirdest loadouts imaginable! Build-Ur-Gun, outgun opponents, and unlock powerful cosmetics.',
+      thumbnail: 'https://tr.rbxcdn.com/180DAY-058feb43b6697d4ff78991ab736e239b/256/256/Image/Png/noFilter',
+      legacy: false,
+    },
+    {
+      placeId: 7817016260,
+      universeId: 3028209651,
+      title: 'Bloxston Mystery',
+      visits: 30556545,
+      playing: 0,
+      favorites: 93748,
+      genre: 'Town and City',
+      desc: 'Work together with the town to discover who\'s bad and bring them to justice. Use abilities to protect, heal, investigate and eliminate. Social deduction at its finest.',
+      thumbnail: 'https://tr.rbxcdn.com/180DAY-c5979f8de5e2a052deb79c32512c2d82/256/256/Image/Png/noFilter',
+      legacy: true,
+    },
+    {
+      placeId: 6997540091,
+      universeId: 2687340357,
+      title: 'Flower Magnet Simulator',
+      visits: 8075524,
+      playing: 0,
+      favorites: 41057,
+      genre: 'Adventure',
+      desc: 'Collect Flowers, buy new eggs, ranges and ranks, and unlock new Islands across multiple dimensions.',
+      thumbnail: 'https://tr.rbxcdn.com/180DAY-ce508a9b8d38bbb00e1c288c1378f02d/256/256/Image/Png/noFilter',
+      legacy: true,
+    },
+    {
+      placeId: 4475902409,
+      universeId: 1427757690,
+      title: 'Project Shooter Game',
+      visits: 551208,
+      playing: 0,
+      favorites: 10286,
+      genre: 'FPS',
+      desc: 'A tactical shooter with custom gun mechanics, supply drops, and team-based combat. Built with the ACS engine.',
+      thumbnail: 'https://tr.rbxcdn.com/180DAY-6571b4a3183e6c2542fd7a1e9ee95d88/256/256/Image/Png/noFilter',
+      legacy: true,
+    },
+    {
+      placeId: 1869263896,
+      universeId: 687996888,
+      title: 'Regicide',
+      visits: 283107,
+      playing: 0,
+      favorites: 5576,
+      genre: 'Medieval',
+      desc: 'Build your medieval village, sell bread, and earn gold. Gain the King\'s favor to become Heir — or eliminate the throne and seize it for yourself.',
+      thumbnail: 'https://tr.rbxcdn.com/180DAY-c9412fcd1cf1d0c7d56007911a4a0abf/256/256/Image/Png/noFilter',
+      legacy: true,
+    },
+    {
+      placeId: 4491837558,
+      universeId: 1435119417,
+      title: 'Boulevard',
+      visits: 127521,
+      playing: 0,
+      favorites: 0,
+      genre: 'DarkRP',
+      desc: 'Welcome to the newest installment of Boulevard, a well polished and developed game, one of the few underrated RP cities on ROBLOX, a game rebuilt based off Boulevard v1, and has a concept similar to DarkRP.',
+      thumbnail: 'https://tr.rbxcdn.com/180DAY-383b8e5cd665ef8d36caf0e1f5664527/256/256/Image/Png/noFilter',
+      legacy: true,
+    },
+    {
+      placeId: 76582083699433,
+      universeId: 9505301317,
+      title: 'Sky Duels [BETA]',
+      visits: 65485,
+      playing: 0,
+      favorites: 559,
+      genre: 'All',
+      desc: 'Defend your home island while raiding enemy bases in massive PvP combat. Unleash devastating spells and magical abilities to outplay your opponents.',
+      thumbnail: 'https://tr.rbxcdn.com/180DAY-66c8151b3abd688e0ae71615a0dac05a/256/256/Image/Png/noFilter',
+      legacy: true,
+    },
+    {
+      placeId: 104772964468768,
+      universeId: 9378495083,
+      title: 'Blind Sword Fighting',
+      visits: 1267344,
+      playing: 0,
+      favorites: 0,
+      genre: 'Combat',
+      desc: 'A blind sword fighting experience.',
+      thumbnail: 'https://tr.rbxcdn.com/180DAY-5f9e6490d2f2a60388582cebb5af3c63/256/256/Image/Png/noFilter',
+      legacy: false,
+    },
+  ];
+
+  function formatVisits(n) {
+    if (n >= 1_000_000) return (n / 1_000_000).toFixed(n < 10_000_000 ? 1 : 0).replace(/\.0$/, '') + 'M';
+    if (n >= 1_000) return Math.round(n / 1_000) + 'K';
+    return String(n);
+  }
+
+  const EXPERIENCES = EXPERIENCES_BASE.map(e => ({
+    ...e,
+    url: `https://www.roblox.com/games/${e.placeId}`,
+    visitLabel: formatVisits(e.visits),
+    playing: e.playing ?? 0,
+    favorites: e.favorites ?? 0,
+    thumbnail: e.thumbnail ?? null,
+    universeId: e.universeId ?? null,
+  }));
+
+  // CORS proxy pool — tried in order with per-request timeout
+  async function tryFetch(url) {
+    const proxies = [
+      `https://corsproxy.io/?${encodeURIComponent(url)}`,
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+      `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+      url,
+    ];
+    for (const u of proxies) {
+      try {
+        const ctrl = new AbortController();
+        const tid = setTimeout(() => ctrl.abort(), 5000);
+        const r = await fetch(u, { mode: 'cors', signal: ctrl.signal });
+        clearTimeout(tid);
+        if (!r.ok) continue;
+        const text = await r.text();
+        try { return JSON.parse(text); } catch { continue; }
+      } catch (_) { /* try next proxy */ }
+    }
+    return null;
+  }
+
+  async function enhance(exp) {
+    const uniData = await tryFetch(`https://apis.roblox.com/universes/v1/places/${exp.placeId}/universe`);
+    if (!uniData?.universeId) return;
+    exp.universeId = uniData.universeId;
+
+    const [gameData, thumbData] = await Promise.all([
+      tryFetch(`https://games.roblox.com/v1/games?universeIds=${uniData.universeId}`),
+      tryFetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${uniData.universeId}&size=256x256&format=Png&isCircular=false`),
+    ]);
+
+    const g = gameData?.data?.[0];
+    if (g) {
+      if (g.name) exp.title = g.name;
+      if (g.visits) { exp.visits = g.visits; exp.visitLabel = formatVisits(g.visits); }
+      if (g.description) exp.desc = g.description;
+      if (g.playing !== undefined) exp.playing = g.playing;
+      if (g.favoritedCount !== undefined) exp.favorites = g.favoritedCount;
+      if (g.genre_l1 || g.genre) exp.genre = g.genre_l1 || g.genre;
+    }
+    const t = thumbData?.data?.[0];
+    if (t?.imageUrl) exp.thumbnail = t.imageUrl;
+  }
+
+  // Retry enhance up to 3 times with increasing delays; skip if legacy
+  async function enhanceWithRetry(exp) {
+    if (exp.legacy) return;
+    const delays = [0, 4000, 8000];
+    for (let attempt = 0; attempt < delays.length; attempt++) {
+      if (delays[attempt] > 0) await new Promise(r => setTimeout(r, delays[attempt]));
+      await enhance(exp);
+      if (exp.universeId) return;
+    }
+  }
+
+  // Sort ascending by visits so star map reads left-to-right as growth
+  EXPERIENCES.sort((a, b) => a.visits - b.visits);
+
+  // Outer-scope layout state — shared between build() and live-patch helpers
+  const PAD = 48;
+  const MIN_R = 5, MAX_R = 28;
+  const POSITIONS = [
+    { rx: 0.05, ry: 0.93 },
+    { rx: 0.18, ry: 0.80 },
+    { rx: 0.30, ry: 0.65 },
+    { rx: 0.43, ry: 0.50 },
+    { rx: 0.55, ry: 0.33 },
+    { rx: 0.67, ry: 0.18 },
+    { rx: 0.80, ry: 0.08 },
+    { rx: 0.93, ry: 0.02 },
+  ];
+  let nodeEls = [];
+  let svgW = 300, svgH = 400;
+
+  function getX(i) { return PAD + POSITIONS[i].rx * (svgW - PAD * 2); }
+  function getY(i) { return PAD + POSITIONS[i].ry * (svgH - PAD * 2); }
+  function starRadius(visits) {
+    const maxV = EXPERIENCES[EXPERIENCES.length - 1].visits;
+    const minV = EXPERIENCES[0].visits;
+    const t = Math.log(visits / minV) / Math.log(maxV / minV);
+    return MIN_R + t * (MAX_R - MIN_R);
+  }
+
+  function updateGlobalStats() {
+    const total = EXPERIENCES.reduce((s, e) => s + e.visits, 0);
+    const featured = EXPERIENCES[EXPERIENCES.length - 1];
+    if (featured && window.__updateFeatured) window.__updateFeatured(featured);
+    if (window.__updateAboutStats) window.__updateAboutStats(total, EXPERIENCES.length);
+  }
+
+  // Mobile list — built descending by visits (biggest showcase first)
+  function buildList() {
+    const listEl = document.getElementById('trajectory-list');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    const sorted = [...EXPERIENCES].sort((a, b) => b.visits - a.visits);
+    sorted.forEach(exp => {
+      const item = document.createElement('div');
+      item.className = 'traj-list-item';
+      item.dataset.placeId = String(exp.placeId);
+
+      const icon = document.createElement('div');
+      icon.className = 'traj-list-icon';
+      if (exp.thumbnail) {
+        icon.style.backgroundImage = `url("${exp.thumbnail}")`;
+      } else {
+        icon.textContent = '...';
+      }
+
+      const body = document.createElement('div');
+      body.className = 'traj-list-body';
+
+      const titleEl = document.createElement('p');
+      titleEl.className = 'traj-list-title';
+      titleEl.textContent = exp.title;
+
+      const meta = document.createElement('p');
+      meta.className = 'traj-list-meta';
+      meta.textContent = exp.visitLabel + ' visits · ' + exp.genre;
+
+      body.appendChild(titleEl);
+      body.appendChild(meta);
+
+      const link = document.createElement('a');
+      link.className = 'traj-list-link';
+      link.href = exp.url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = '▶';
+
+      item.appendChild(icon);
+      item.appendChild(body);
+      item.appendChild(link);
+      listEl.appendChild(item);
+    });
+  }
+
+  function patchListItem(exp) {
+    const listEl = document.getElementById('trajectory-list');
+    if (!listEl) return;
+    const item = listEl.querySelector(`[data-place-id="${exp.placeId}"]`);
+    if (!item) return;
+    const icon = item.querySelector('.traj-list-icon');
+    if (icon && exp.thumbnail) {
+      icon.style.backgroundImage = `url("${exp.thumbnail}")`;
+      icon.textContent = '';
+    }
+    const titleEl = item.querySelector('.traj-list-title');
+    if (titleEl) titleEl.textContent = exp.title;
+    const meta = item.querySelector('.traj-list-meta');
+    if (meta) meta.textContent = exp.visitLabel + ' visits · ' + exp.genre;
+  }
+
+  // Update visit / title labels without touching the star element
+  function patchNodeLabels(exp) {
+    const idx = EXPERIENCES.indexOf(exp);
+    if (idx < 0 || !nodeEls[idx]) return;
+    const texts = nodeEls[idx].querySelectorAll('text');
+    if (texts[0]) texts[0].textContent = exp.visitLabel;
+    if (texts[1]) texts[1].textContent = exp.title.length > 18 ? exp.title.slice(0, 16) + '…' : exp.title;
+  }
+
+  // Replace gradient-circle star with live game icon, patch labels in-place
+  function patchNodeThumbnail(exp) {
+    const idx = EXPERIENCES.indexOf(exp);
+    if (idx < 0 || !nodeEls[idx]) return;
+    const nodeEl = nodeEls[idx];
+
+    const svgEl = document.getElementById('trajectory-svg');
+    const defs = svgEl?.querySelector('defs');
+    if (!defs) return;
+
+    const cx = getX(idx), cy = getY(idx);
+    const r = starRadius(exp.visits);
+    const isBig = idx === EXPERIENCES.length - 1;
+
+    const oldStar = nodeEl.querySelector('.node-star');
+    if (!oldStar) return;
+
+    const clipId = `thumbClipLive${idx}`;
+    if (!document.getElementById(clipId)) {
+      const clip = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+      clip.setAttribute('id', clipId);
+      const cc = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      cc.setAttribute('cx', '0'); cc.setAttribute('cy', '0'); cc.setAttribute('r', String(r));
+      clip.appendChild(cc);
+      defs.appendChild(clip);
+    }
+
+    const imgGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    imgGroup.setAttribute('class', 'node-star');
+    imgGroup.setAttribute('transform', `translate(${cx}, ${cy})`);
+
+    const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+    img.setAttribute('href', exp.thumbnail);
+    img.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', exp.thumbnail);
+    img.setAttribute('x', String(-r)); img.setAttribute('y', String(-r));
+    img.setAttribute('width', String(r * 2)); img.setAttribute('height', String(r * 2));
+    img.setAttribute('clip-path', `url(#${clipId})`);
+    img.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+
+    const border = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    border.setAttribute('cx', '0'); border.setAttribute('cy', '0'); border.setAttribute('r', String(r));
+    border.setAttribute('fill', 'none');
+    border.setAttribute('stroke', isBig ? '#e879f9' : '#c084fc');
+    border.setAttribute('stroke-width', '1.5');
+    border.setAttribute('filter', 'url(#glow)');
+    border.setAttribute('opacity', '0.9');
+
+    imgGroup.appendChild(img);
+    imgGroup.appendChild(border);
+    oldStar.replaceWith(imgGroup);
+
+    // Update visit / title labels
+    const texts = nodeEl.querySelectorAll('text');
+    if (texts[0]) texts[0].textContent = exp.visitLabel;
+    if (texts[1]) texts[1].textContent = exp.title.length > 18 ? exp.title.slice(0, 16) + '…' : exp.title;
+  }
+
+  const svg = document.getElementById('trajectory-svg');
+  const wrap = document.getElementById('trajectory-canvas-wrap');
+
+  // Seed UI with base data immediately
+  updateGlobalStats();
+
+  let scrollUnlisten = null;
+
+  function build() {
+    if (scrollUnlisten) { window.removeEventListener('scroll', scrollUnlisten); }
+    svg.innerHTML = '';
+    nodeEls = [];
+
+    const W = Math.max(wrap.clientWidth - 32, 300);
+    const H = Math.min(560, Math.max(380, window.innerHeight * 0.52));
+    svgW = W; svgH = H;
+
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('height', H);
+
+    const n = EXPERIENCES.length;
+
+    // ── DEFS ──
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    defs.innerHTML = `
+      <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="bigglow" x="-150%" y="-150%" width="400%" height="400%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="lineglow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      ${EXPERIENCES.map((exp, i) => `
+        <radialGradient id="starGrad${i}" cx="35%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+          <stop offset="30%" stop-color="${i === n-1 ? '#f9a8d4' : '#c084fc'}" stop-opacity="0.95"/>
+          <stop offset="100%" stop-color="${i === n-1 ? '#e879f9' : '#7e22ce'}" stop-opacity="0.8"/>
+        </radialGradient>
+        <clipPath id="thumbClip${i}">
+          <circle cx="0" cy="0" r="100"/>
+        </clipPath>
+      `).join('')}
+    `;
+    svg.appendChild(defs);
+
+    // Background micro-stars
+    const bgStars = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    bgStars.setAttribute('opacity', '0.35');
+    for (let i = 0; i < 60; i++) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', Math.random() * W);
+      c.setAttribute('cy', Math.random() * H);
+      const r = Math.random() * 1.2 + 0.3;
+      c.setAttribute('r', r);
+      c.setAttribute('fill', Math.random() > 0.6 ? '#c084fc' : '#ffffff');
+      c.setAttribute('opacity', Math.random() * 0.5 + 0.2);
+      bgStars.appendChild(c);
+    }
+    svg.appendChild(bgStars);
+
+    // ── CONSTELLATION LINES ──
+    const lineGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    lineGroup.setAttribute('id', 'constellation-lines');
+
+    const lineEls = [];
+    for (let i = 0; i < n - 1; i++) {
+      const lineGlow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      lineGlow.setAttribute('x1', getX(i)); lineGlow.setAttribute('y1', getY(i));
+      lineGlow.setAttribute('x2', getX(i)); lineGlow.setAttribute('y2', getY(i));
+      lineGlow.setAttribute('stroke', '#a855f7');
+      lineGlow.setAttribute('stroke-width', '2.5');
+      lineGlow.setAttribute('stroke-linecap', 'round');
+      lineGlow.setAttribute('opacity', '0.3');
+      lineGlow.setAttribute('filter', 'url(#lineglow)');
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', getX(i)); line.setAttribute('y1', getY(i));
+      line.setAttribute('x2', getX(i)); line.setAttribute('y2', getY(i));
+      line.setAttribute('stroke', '#d8b4fe');
+      line.setAttribute('stroke-width', '1');
+      line.setAttribute('stroke-linecap', 'round');
+      line.setAttribute('stroke-dasharray', '4 3');
+      line.setAttribute('opacity', '0.5');
+
+      lineGroup.appendChild(lineGlow);
+      lineGroup.appendChild(line);
+      lineEls.push({ glow: lineGlow, crisp: line, tx: getX(i+1), ty: getY(i+1) });
+    }
+    svg.appendChild(lineGroup);
+
+    // ── STAR NODES ──
+    const nodeGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    nodeGroup.setAttribute('id', 'traj-nodes');
+
+    EXPERIENCES.forEach((exp, i) => {
+      const cx = getX(i), cy = getY(i);
+      const r = starRadius(exp.visits);
+      const isBig = i === n - 1;
+
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('class', 'traj-node');
+      g.setAttribute('data-index', i);
+      g.style.cursor = 'pointer';
+      g.style.opacity = '0';
+      g.style.transition = 'opacity 0.5s';
+
+      const halo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      halo.setAttribute('cx', cx); halo.setAttribute('cy', cy);
+      halo.setAttribute('r', r + 10);
+      halo.setAttribute('fill', isBig ? '#e879f9' : '#a855f7');
+      halo.setAttribute('opacity', '0.07');
+      halo.setAttribute('filter', 'url(#bigglow)');
+
+      const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      pulse.setAttribute('cx', cx); pulse.setAttribute('cy', cy);
+      pulse.setAttribute('r', r);
+      pulse.setAttribute('fill', 'none');
+      pulse.setAttribute('stroke', isBig ? '#e879f9' : '#c084fc');
+      pulse.setAttribute('stroke-width', '1.5');
+      const dur = 2.5 + i * 0.2;
+      pulse.innerHTML = `
+        <animate attributeName="r" values="${r};${r + 16};${r}" dur="${dur}s" repeatCount="indefinite" begin="${i * 0.35}s"/>
+        <animate attributeName="opacity" values="0.5;0;0.5" dur="${dur}s" repeatCount="indefinite" begin="${i * 0.35}s"/>
+      `;
+
+      // Star: game icon if already fetched, else gradient circle fallback
+      let star;
+      if (exp.thumbnail) {
+        const imgGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        imgGroup.setAttribute('class', 'node-star');
+        imgGroup.setAttribute('transform', `translate(${cx}, ${cy})`);
+
+        const clip = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+        clip.setAttribute('id', `thumbClipReal${i}`);
+        const clipCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        clipCircle.setAttribute('cx', '0'); clipCircle.setAttribute('cy', '0'); clipCircle.setAttribute('r', String(r));
+        clip.appendChild(clipCircle);
+        defs.appendChild(clip);
+
+        const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+        img.setAttribute('href', exp.thumbnail);
+        img.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', exp.thumbnail);
+        img.setAttribute('x', String(-r)); img.setAttribute('y', String(-r));
+        img.setAttribute('width', String(r * 2)); img.setAttribute('height', String(r * 2));
+        img.setAttribute('clip-path', `url(#thumbClipReal${i})`);
+        img.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+
+        const border = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        border.setAttribute('cx', '0'); border.setAttribute('cy', '0'); border.setAttribute('r', String(r));
+        border.setAttribute('fill', 'none');
+        border.setAttribute('stroke', isBig ? '#e879f9' : '#c084fc');
+        border.setAttribute('stroke-width', '1.5');
+        border.setAttribute('filter', 'url(#glow)');
+        border.setAttribute('opacity', '0.9');
+
+        imgGroup.appendChild(img);
+        imgGroup.appendChild(border);
+        star = imgGroup;
+      } else {
+        star = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        star.setAttribute('class', 'node-star');
+        star.setAttribute('cx', cx); star.setAttribute('cy', cy);
+        star.setAttribute('r', r);
+        star.setAttribute('fill', `url(#starGrad${i})`);
+        star.setAttribute('filter', 'url(#glow)');
+      }
+
+      const hit = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      hit.setAttribute('cx', cx); hit.setAttribute('cy', cy);
+      hit.setAttribute('r', Math.max(r + 10, 22));
+      hit.setAttribute('fill', 'transparent');
+
+      const visitLbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      visitLbl.setAttribute('x', cx);
+      visitLbl.setAttribute('y', cy + r + 16);
+      visitLbl.setAttribute('text-anchor', 'middle');
+      visitLbl.setAttribute('font-family', 'Space Mono, monospace');
+      visitLbl.setAttribute('font-size', Math.max(9, Math.min(12, r * 0.5 + 7)));
+      visitLbl.setAttribute('fill', isBig ? '#f0abfc' : '#a78bfa');
+      visitLbl.setAttribute('opacity', '0.9');
+      visitLbl.textContent = exp.visitLabel;
+
+      const titleLbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      titleLbl.setAttribute('x', cx);
+      titleLbl.setAttribute('y', cy - r - 10);
+      titleLbl.setAttribute('text-anchor', 'middle');
+      titleLbl.setAttribute('font-family', 'Space Grotesk, sans-serif');
+      titleLbl.setAttribute('font-size', isBig ? 13 : 10);
+      titleLbl.setAttribute('font-weight', isBig ? '700' : '500');
+      titleLbl.setAttribute('fill', isBig ? '#f5f0ff' : '#c4b5fd');
+      titleLbl.textContent = exp.title.length > 18 ? exp.title.slice(0, 16) + '…' : exp.title;
+
+      g.appendChild(halo);
+      g.appendChild(pulse);
+      g.appendChild(star);
+      g.appendChild(visitLbl);
+      g.appendChild(titleLbl);
+      g.appendChild(hit);
+
+      // Hover uses querySelector so it works after live thumbnail patch
+      g.addEventListener('mouseenter', () => {
+        const s = g.querySelector('.node-star');
+        if (!s) return;
+        if (s.tagName === 'circle') s.setAttribute('r', r * 1.15);
+        else s.setAttribute('transform', `translate(${cx}, ${cy}) scale(1.12)`);
+        halo.setAttribute('opacity', '0.14');
+      });
+      g.addEventListener('mouseleave', () => {
+        const s = g.querySelector('.node-star');
+        if (!s) return;
+        if (s.tagName === 'circle') s.setAttribute('r', r);
+        else s.setAttribute('transform', `translate(${cx}, ${cy})`);
+        halo.setAttribute('opacity', '0.07');
+      });
+      g.addEventListener('click', (e) => openCard(exp, e.clientX, e.clientY));
+
+      nodeGroup.appendChild(g);
+      nodeEls.push(g);
+    });
+    svg.appendChild(nodeGroup);
+
+    // ── SCROLL REVEAL ──
+    function updateTrajectory() {
+      const rect = wrap.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      const entered = viewH - rect.top;
+      const progress = Math.max(0, Math.min(1, entered / (H + viewH * 0.15)));
+
+      lineEls.forEach((le, i) => {
+        const t0 = i / (n - 1);
+        const t1 = (i + 1) / (n - 1);
+        const segProgress = Math.max(0, Math.min(1, (progress - t0) / (t1 - t0)));
+        const cx = getX(i) + (le.tx - getX(i)) * segProgress;
+        const cy = getY(i) + (le.ty - getY(i)) * segProgress;
+        le.glow.setAttribute('x2', cx); le.glow.setAttribute('y2', cy);
+        le.crisp.setAttribute('x2', cx); le.crisp.setAttribute('y2', cy);
+      });
+
+      nodeEls.forEach((node, i) => {
+        const threshold = (i / (n - 1)) * 0.7;
+        const np = Math.max(0, Math.min(1, (progress - threshold) / 0.15));
+        node.style.opacity = np;
+      });
+    }
+
+    scrollUnlisten = updateTrajectory;
+    window.addEventListener('scroll', updateTrajectory, { passive: true });
+    updateTrajectory();
+  }
+
+  window.addEventListener('load', () => { build(); buildList(); });
+  window.addEventListener('resize', () => { build(); buildList(); });
+  build();
+  buildList();
+
+  // Progressive enhancement — each experience fetches independently,
+  // retries up to 3x, patches in-place as soon as data arrives
+  EXPERIENCES.forEach(exp => {
+    enhanceWithRetry(exp).then(() => {
+      updateGlobalStats();
+      const liveTotal = EXPERIENCES.reduce((s, e) => s + e.visits, 0);
+      if (window.__updateCounterTarget) window.__updateCounterTarget(liveTotal);
+      if (nodeEls.length > 0) {
+        if (exp.thumbnail) patchNodeThumbnail(exp);
+        else if (exp.title !== 'LOADING') patchNodeLabels(exp);
+      }
+      patchListItem(exp);
+    }).catch(() => {});
+  });
+
+  // ── NODE CARD ──
+  const card = document.getElementById('node-card');
+  const closeBtn = document.getElementById('node-card-close');
+
+  function openCard(exp, clientX, clientY) {
+    document.getElementById('nc-year').textContent = exp.visitLabel + ' visits  ·  ' + exp.genre;
+    document.getElementById('nc-title').textContent = exp.title;
+    document.getElementById('nc-visits').textContent = '🚀 ' + exp.visits.toLocaleString() + ' total  ·  ❤ ' + (exp.favorites || 0).toLocaleString() + '  ·  ▶ ' + (exp.playing || 0).toLocaleString() + ' playing';
+    const desc = (exp.desc || '').trim();
+    document.getElementById('nc-desc').textContent = desc.length > 200 ? desc.slice(0, 197) + '…' : desc;
+
+    const thumbEl = document.getElementById('nc-thumb');
+    if (exp.thumbnail) {
+      thumbEl.style.backgroundImage = `url("${exp.thumbnail}")`;
+      thumbEl.classList.add('has-img');
+      thumbEl.textContent = '';
+    } else {
+      thumbEl.style.backgroundImage = '';
+      thumbEl.classList.remove('has-img');
+      thumbEl.textContent = exp.title + ' thumbnail';
+    }
+
+    const linkEl = document.getElementById('nc-link');
+    linkEl.href = exp.url;
+
+    const cw = 300, margin = 16, ch = 380;
+    let left = clientX + 20;
+    let top = clientY - 20;
+    if (left + cw > window.innerWidth - margin) left = clientX - cw - 20;
+    if (top + ch > window.innerHeight - margin) top = window.innerHeight - ch - margin;
+    if (top < margin) top = margin;
+    if (left < margin) left = margin;
+    card.style.left = left + 'px';
+    card.style.top = top + 'px';
+    card.classList.remove('hidden');
+    card.classList.add('visible');
+  }
+
+  closeBtn.addEventListener('click', () => {
+    card.classList.remove('visible');
+    card.classList.add('hidden');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!card.contains(e.target) && !e.target.closest('.traj-node')) {
+      card.classList.remove('visible');
+      card.classList.add('hidden');
+    }
+  });
+
+  window.addEventListener('scroll', () => {
+    if (card.classList.contains('visible')) {
+      card.classList.remove('visible');
+      card.classList.add('hidden');
+    }
+  }, { passive: true });
+})();
+
+// ── TWEAKS PANEL ─────────────────────────────────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "counterTarget": "300M+",
+  "accentColor": "#e879f9",
+  "starCount": 320,
+  "counterDuration": 3800
+}/*EDITMODE-END*/;
+
+function TweaksApp() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  return (
+    <TweaksPanel>
+      <TweakSection label="Hero">
+        <TweakText label="Counter Target Label" value={tweaks.counterTarget} onChange={v => setTweak('counterTarget', v)} />
+        <TweakSlider label="Counter Speed (ms)" min={800} max={8000} step={200} value={tweaks.counterDuration} onChange={v => setTweak('counterDuration', v)} />
+      </TweakSection>
+      <TweakSection label="Visual">
+        <TweakColor label="Accent Color" value={tweaks.accentColor} onChange={v => setTweak('accentColor', v)} />
+        <TweakSlider label="Star Count" min={80} max={600} step={20} value={tweaks.starCount} onChange={v => setTweak('starCount', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
+</script>
+
+<div id="tweaks-root"></div>
+
+<script>
+// Motion polish: scroll reveals + pointer tilt
+(function () {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealGroups = [
+    '.section-header',
+    '#skills .skill-card',
+    '#about .about-left',
+    '#about .about-right',
+    '#featured .featured-thumb',
+    '#featured .featured-info',
+    '#accomplishments .achievement-card',
+    '#impact .impact-card',
+    '#contact .contact-copy',
+    '#contact .contact-card'
+  ];
+
+  const revealTargets = [];
+  revealGroups.forEach(selector => {
+    document.querySelectorAll(selector).forEach((el, index) => {
+      el.classList.add('revealable');
+      el.style.setProperty('--reveal-index', String(index % 5));
+      revealTargets.push(el);
+    });
+  });
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealTargets.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+
+  revealTargets.forEach(el => revealObserver.observe(el));
+
+  const tiltTargets = document.querySelectorAll('.skill-card, .achievement-card, .impact-card, .contact-card, .featured-thumb');
+  tiltTargets.forEach(card => {
+    card.addEventListener('pointermove', event => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      card.style.setProperty('--tilt-x', `${(-y * 5).toFixed(2)}deg`);
+      card.style.setProperty('--tilt-y', `${(x * 7).toFixed(2)}deg`);
+    });
+
+    card.addEventListener('pointerleave', () => {
+      card.style.setProperty('--tilt-x', '0deg');
+      card.style.setProperty('--tilt-y', '0deg');
+    });
+  });
+})();
+</script>
+
+<script>
+// ── SITE NAV ─────────────────────────────────────────────────────────
+(function () {
+  const nav = document.getElementById('site-nav');
+  const links = nav.querySelectorAll('.nav-link');
+
+  // Hide on scroll-down, show on scroll-up
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < 60) {
+      nav.classList.remove('nav-hidden');
+    } else if (y > lastY + 4) {
+      nav.classList.add('nav-hidden');
+    } else if (y < lastY - 4) {
+      nav.classList.remove('nav-hidden');
+    }
+    lastY = y;
+  }, { passive: true });
+
+  // Active section via IntersectionObserver (skip nav-cta links)
+  const trackableLinks = Array.from(links).filter(l => !l.classList.contains('nav-cta'));
+  const sections = trackableLinks.map(l => document.getElementById(l.dataset.section)).filter(Boolean);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        trackableLinks.forEach(l => l.classList.toggle('nav-active', l.dataset.section === entry.target.id));
+      }
+    });
+  }, { threshold: 0.25 });
+  sections.forEach(s => observer.observe(s));
+
+  // Smooth scroll
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(link.dataset.section);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
