@@ -537,7 +537,7 @@
 
   .achievement-card:hover {
     border-color: oklch(0.5 0.22 310 / 0.7);
-    transform: translateX(4px);
+    --tilt-shift-x: 4px;
     box-shadow: 0 0 40px oklch(0.4 0.25 310 / 0.2);
   }
 
@@ -668,7 +668,7 @@
 
   .skill-card:hover {
     border-color: oklch(0.5 0.22 310 / 0.7);
-    transform: translateY(-2px);
+    --tilt-lift: -2px;
     box-shadow: 0 0 40px oklch(0.4 0.25 310 / 0.2);
   }
 
@@ -1249,7 +1249,7 @@
 
   .contact-card:hover {
     border-color: oklch(0.55 0.24 310 / 0.72);
-    transform: translateY(-3px);
+    --tilt-lift: -3px;
     box-shadow: 0 0 42px oklch(0.42 0.25 310 / 0.24);
   }
 
@@ -1433,7 +1433,10 @@
     --tilt-y: 0deg;
     --tilt-z: 0px;
     --tilt-lift: 0px;
-    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0, var(--tilt-lift), var(--tilt-z));
+    --tilt-shift-x: 0px;
+    --reveal-y: 0px;
+    --reveal-scale: 1;
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(var(--tilt-shift-x), calc(var(--tilt-lift) + var(--reveal-y)), var(--tilt-z)) scale(var(--reveal-scale));
     transform-style: preserve-3d;
     backface-visibility: hidden;
     transition: transform 0.24s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -1446,11 +1449,13 @@
   .featured-thumb:hover {
     --tilt-lift: -5px;
     --tilt-z: 10px;
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(var(--tilt-shift-x), calc(var(--tilt-lift) + var(--reveal-y)), var(--tilt-z)) scale(var(--reveal-scale));
   }
 
   .achievement-card:hover {
+    --tilt-shift-x: 4px;
     --tilt-z: 8px;
-    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(4px, 0, var(--tilt-z));
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(var(--tilt-shift-x), calc(var(--tilt-lift) + var(--reveal-y)), var(--tilt-z)) scale(var(--reveal-scale));
   }
 
   .skill-card::after,
@@ -1538,15 +1543,23 @@
   .contact-card.revealable,
   .impact-card.revealable,
   .featured-thumb.revealable {
-    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0, calc(var(--tilt-lift) + var(--reveal-y)), var(--tilt-z)) scale(var(--reveal-scale));
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(var(--tilt-shift-x), calc(var(--tilt-lift) + var(--reveal-y)), var(--tilt-z)) scale(var(--reveal-scale));
   }
 
   .achievement-card.revealable {
-    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0, var(--reveal-y), var(--tilt-z)) scale(var(--reveal-scale));
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(var(--tilt-shift-x), calc(var(--tilt-lift) + var(--reveal-y)), var(--tilt-z)) scale(var(--reveal-scale));
   }
 
   .achievement-card.revealable:hover {
-    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(4px, var(--reveal-y), var(--tilt-z)) scale(var(--reveal-scale));
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(var(--tilt-shift-x), calc(var(--tilt-lift) + var(--reveal-y)), var(--tilt-z)) scale(var(--reveal-scale));
+  }
+
+  .skill-card.tilt-ready,
+  .achievement-card.tilt-ready,
+  .contact-card.tilt-ready,
+  .impact-card.tilt-ready,
+  .featured-thumb.tilt-ready {
+    transition-delay: 0ms;
   }
 
   @keyframes dataDrift {
@@ -2666,6 +2679,60 @@ function formatLargeNumber(n) {
     if (texts[1]) texts[1].textContent = exp.title.length > 18 ? exp.title.slice(0, 16) + '…' : exp.title;
   }
 
+  const starHoverFrames = new WeakMap();
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function getStarScale(star, baseRadius) {
+    if (star.__hoverScale) return star.__hoverScale;
+    if (star.tagName.toLowerCase() === 'circle') {
+      const currentRadius = Number(star.getAttribute('r')) || baseRadius;
+      return currentRadius / baseRadius;
+    }
+    const scaleMatch = (star.getAttribute('transform') || '').match(/scale\(([^)]+)\)/);
+    return scaleMatch ? Number(scaleMatch[1]) || 1 : 1;
+  }
+
+  function setStarScale(star, cx, cy, baseRadius, scale) {
+    star.__hoverScale = scale;
+    if (star.tagName.toLowerCase() === 'circle') {
+      star.setAttribute('r', String(baseRadius * scale));
+    } else {
+      star.setAttribute('transform', `translate(${cx}, ${cy}) scale(${scale})`);
+    }
+  }
+
+  function animateStarHover(star, halo, cx, cy, baseRadius, targetScale) {
+    const existingFrame = starHoverFrames.get(star);
+    if (existingFrame) cancelAnimationFrame(existingFrame);
+
+    const startScale = getStarScale(star, baseRadius);
+    const startOpacity = Number(halo.getAttribute('opacity')) || 0.07;
+    const targetOpacity = targetScale > 1 ? 0.14 : 0.07;
+    const startTime = performance.now();
+    const duration = 190;
+
+    function step(now) {
+      const t = Math.min(1, (now - startTime) / duration);
+      const eased = easeOutCubic(t);
+      const scale = startScale + (targetScale - startScale) * eased;
+      const opacity = startOpacity + (targetOpacity - startOpacity) * eased;
+
+      setStarScale(star, cx, cy, baseRadius, scale);
+      halo.setAttribute('opacity', opacity.toFixed(3));
+
+      if (t < 1) {
+        starHoverFrames.set(star, requestAnimationFrame(step));
+      } else {
+        starHoverFrames.delete(star);
+      }
+    }
+
+    starHoverFrames.set(star, requestAnimationFrame(step));
+  }
+
   const svg = document.getElementById('trajectory-svg');
   const wrap = document.getElementById('trajectory-canvas-wrap');
 
@@ -2874,16 +2941,13 @@ function formatLargeNumber(n) {
       g.addEventListener('mouseenter', () => {
         const s = g.querySelector('.node-star');
         if (!s) return;
-        if (s.tagName === 'circle') s.setAttribute('r', r * 1.15);
-        else s.setAttribute('transform', `translate(${cx}, ${cy}) scale(1.12)`);
-        halo.setAttribute('opacity', '0.14');
+        const targetScale = s.tagName.toLowerCase() === 'circle' ? 1.15 : 1.12;
+        animateStarHover(s, halo, cx, cy, r, targetScale);
       });
       g.addEventListener('mouseleave', () => {
         const s = g.querySelector('.node-star');
         if (!s) return;
-        if (s.tagName === 'circle') s.setAttribute('r', r);
-        else s.setAttribute('transform', `translate(${cx}, ${cy})`);
-        halo.setAttribute('opacity', '0.07');
+        animateStarHover(s, halo, cx, cy, r, 1);
       });
       g.addEventListener('click', (e) => openCard(exp, e.clientX, e.clientY));
 
@@ -3054,8 +3118,50 @@ ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />
     });
   });
 
+  const tiltSelector = '.skill-card, .achievement-card, .impact-card, .contact-card, .featured-thumb';
+  let activeTiltCard = null;
+
+  function resetTilt(card) {
+    card.style.setProperty('--tilt-x', '0deg');
+    card.style.setProperty('--tilt-y', '0deg');
+  }
+
+  function markTiltReady(el) {
+    if (el.matches?.(tiltSelector)) el.classList.add('tilt-ready');
+  }
+
+  document.addEventListener('pointermove', event => {
+    const target = event.target instanceof Element ? event.target : null;
+    const card = target?.closest(tiltSelector);
+    if (!card) {
+      if (activeTiltCard) resetTilt(activeTiltCard);
+      activeTiltCard = null;
+      return;
+    }
+
+    activeTiltCard = card;
+    card.classList.add('tilt-ready');
+    const rect = card.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty('--tilt-x', `${(-y * 5).toFixed(2)}deg`);
+    card.style.setProperty('--tilt-y', `${(x * 7).toFixed(2)}deg`);
+  });
+
+  document.addEventListener('pointerout', event => {
+    const target = event.target instanceof Element ? event.target : null;
+    const card = target?.closest(tiltSelector);
+    const nextTarget = event.relatedTarget instanceof Node ? event.relatedTarget : null;
+    if (!card || (nextTarget && card.contains(nextTarget))) return;
+    resetTilt(card);
+    if (activeTiltCard === card) activeTiltCard = null;
+  });
+
   if (reduceMotion || !('IntersectionObserver' in window)) {
-    revealTargets.forEach(el => el.classList.add('is-visible'));
+    revealTargets.forEach(el => {
+      el.classList.add('is-visible');
+      markTiltReady(el);
+    });
     return;
   }
 
@@ -3063,28 +3169,14 @@ ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
+        const revealIndex = Number(entry.target.style.getPropertyValue('--reveal-index')) || 0;
+        window.setTimeout(() => markTiltReady(entry.target), revealIndex * 80 + 800);
         revealObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
 
   revealTargets.forEach(el => revealObserver.observe(el));
-
-  const tiltTargets = document.querySelectorAll('.skill-card, .achievement-card, .impact-card, .contact-card, .featured-thumb');
-  tiltTargets.forEach(card => {
-    card.addEventListener('pointermove', event => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      card.style.setProperty('--tilt-x', `${(-y * 5).toFixed(2)}deg`);
-      card.style.setProperty('--tilt-y', `${(x * 7).toFixed(2)}deg`);
-    });
-
-    card.addEventListener('pointerleave', () => {
-      card.style.setProperty('--tilt-x', '0deg');
-      card.style.setProperty('--tilt-y', '0deg');
-    });
-  });
 })();
 </script>
 
