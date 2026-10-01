@@ -4,14 +4,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>httpDerpyy — Roblox Developer</title>
-<meta name="description" content="Senior Roblox developer behind Weird Gun Game (236M+ visits, Top 50 on Roblox). Specialising in cross-platform gameplay, distributed services, and high-scale experiences." />
+<meta name="description" content="Senior Roblox developer behind Weird Gun Game (280M+ visits, Top 50 on Roblox). Specialising in cross-platform gameplay, distributed services, and high-scale experiences." />
 <meta property="og:title" content="httpDerpyy — Roblox Developer" />
-<meta property="og:description" content="Senior Roblox developer behind Weird Gun Game — 236M+ visits, Top 50 on Roblox, featured at RDC 2025." />
+<meta property="og:description" content="Senior Roblox developer behind Weird Gun Game — 280M+ visits, Top 50 on Roblox, featured at RDC 2025." />
 <meta property="og:image" content="https://tr.rbxcdn.com/180DAY-058feb43b6697d4ff78991ab736e239b/256/256/Image/Png/noFilter" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="httpDerpyy — Roblox Developer" />
-<meta name="twitter:description" content="Senior Roblox developer behind Weird Gun Game — 236M+ visits, Top 50 on Roblox, featured at RDC 2025." />
+<meta name="twitter:description" content="Senior Roblox developer behind Weird Gun Game — 280M+ visits, Top 50 on Roblox, featured at RDC 2025." />
 <meta name="twitter:image" content="https://tr.rbxcdn.com/180DAY-058feb43b6697d4ff78991ab736e239b/256/256/Image/Png/noFilter" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1853,11 +1853,11 @@
       </p>
       <div class="about-stats-row">
         <div class="about-stat">
-          <span class="about-stat-val" id="about-total-visits">300M+</span>
+          <span class="about-stat-val" id="about-total-visits">87.3B+</span>
           <span class="about-stat-label">Total Visits</span>
         </div>
         <div class="about-stat">
-          <span class="about-stat-val" id="about-experience-count">7+</span>
+          <span class="about-stat-val" id="about-experience-count">9+</span>
           <span class="about-stat-label">Experiences</span>
         </div>
       </div>
@@ -1875,14 +1875,14 @@
   <div class="featured-grid">
     <div class="featured-thumb has-img" id="featured-thumb" style="background-image:url('https://tr.rbxcdn.com/180DAY-058feb43b6697d4ff78991ab736e239b/256/256/Image/Png/noFilter');background-size:cover;background-position:center;"></div>
     <div class="featured-info">
-      <span class="featured-badge">⭐ #1 Experience</span>
+      <span class="featured-badge">⭐ Flagship Experience</span>
       <h3 class="featured-title" id="featured-title">[3D!] Weird<br />Gun Game</h3>
       <p class="featured-desc" id="featured-desc">
         A genre-bending 3D shooter that broke through to the Roblox front page — combining fast-paced gameplay with a unique visual style that kept millions of players coming back.
       </p>
       <div class="featured-stats">
         <div class="stat-block">
-          <span class="stat-val" id="featured-visits">235M+</span>
+          <span class="stat-val" id="featured-visits">280M+</span>
           <span class="stat-label">Visits</span>
         </div>
         <div class="stat-block">
@@ -1933,6 +1933,26 @@
         <span class="achievement-tag">Gamescom Latam · Invited</span>
         <p class="achievement-text">
           Invited to <strong>Gamescom Latam 2026</strong> for a meeting with <em>Lauren Cheatham</em>, Head of Innovation.
+        </p>
+      </div>
+      <div class="achievement-year">'26</div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-medal">🎤</div>
+      <div class="achievement-content">
+        <span class="achievement-tag">Inspire Café · Speaker</span>
+        <p class="achievement-text">
+          Speaker at <strong>Roblox Inspire Café 2026</strong> in <em>São Paulo</em>.
+        </p>
+      </div>
+      <div class="achievement-year">'26</div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-medal">🎟️</div>
+      <div class="achievement-content">
+        <span class="achievement-tag">RDC · Invited</span>
+        <p class="achievement-text">
+          Invited to <strong>RDC 2026</strong>.
         </p>
       </div>
       <div class="achievement-year">'26</div>
@@ -2202,7 +2222,7 @@
 // ── VISIT COUNTER ──────────────────────────────────────────────────
 (function() {
   const el = document.getElementById('visit-counter');
-  let TARGET = 277_000_000;
+  let TARGET = 0;
   let DURATION = 3800; // ms
   let started = false;
 
@@ -2221,7 +2241,9 @@
   }
 
   function formatCount(n) {
-    if (n >= 1_000_000) {
+    if (n >= 1_000_000_000) {
+      return (n / 1_000_000_000).toFixed(1).replace(/\.0$/, '') + 'B';
+    } else if (n >= 1_000_000) {
       return (n / 1_000_000).toFixed(n < 10_000_000 ? 1 : 0) + 'M';
     } else if (n >= 1_000) {
       return (n / 1_000).toFixed(0) + 'K';
@@ -2349,12 +2371,24 @@ function formatLargeNumber(n) {
       placeId: 94590879393563,
       universeId: 7115773109,
       title: '[3D!] Weird Gun Game',
-      visits: 236066287,
+      visits: 280_000_000,
       playing: 2817,
       favorites: 915378,
       genre: 'All',
       desc: '🔫 Forge chaotic creations by fusing gun parts from different weapons and dominate the arena with the weirdest loadouts imaginable! Build-Ur-Gun, outgun opponents, and unlock powerful cosmetics.',
       thumbnail: 'https://tr.rbxcdn.com/180DAY-058feb43b6697d4ff78991ab736e239b/256/256/Image/Png/noFilter',
+      legacy: false,
+    },
+    {
+      placeId: 4924922222,
+      universeId: 1686885941,
+      title: 'Brookhaven 🏡RP',
+      visits: 87_000_000_000,
+      playing: 0,
+      favorites: 0,
+      genre: 'Roleplay & Avatar Sim',
+      desc: 'A place to play with like-minded people and roleplay. Own and live in amazing houses, drive cool vehicles, and explore the city.',
+      thumbnail: 'https://tr.rbxcdn.com/180DAY-cb0854bb028d693b74d01fa9b265b50d/500/280/Image/Jpeg/noFilter',
       legacy: false,
     },
     {
@@ -2444,6 +2478,7 @@ function formatLargeNumber(n) {
   ];
 
   function formatVisits(n) {
+    if (n >= 1_000_000_000) return (n / 1_000_000_000).toFixed(1).replace(/\.0$/, '') + 'B';
     if (n >= 1_000_000) return (n / 1_000_000).toFixed(n < 10_000_000 ? 1 : 0).replace(/\.0$/, '') + 'M';
     if (n >= 1_000) return Math.round(n / 1_000) + 'K';
     return String(n);
@@ -2523,12 +2558,13 @@ function formatLargeNumber(n) {
   const MIN_R = 5, MAX_R = 28;
   const POSITIONS = [
     { rx: 0.05, ry: 0.93 },
-    { rx: 0.18, ry: 0.80 },
-    { rx: 0.30, ry: 0.65 },
-    { rx: 0.43, ry: 0.50 },
-    { rx: 0.55, ry: 0.33 },
-    { rx: 0.67, ry: 0.18 },
-    { rx: 0.80, ry: 0.08 },
+    { rx: 0.16, ry: 0.82 },
+    { rx: 0.27, ry: 0.71 },
+    { rx: 0.38, ry: 0.60 },
+    { rx: 0.49, ry: 0.49 },
+    { rx: 0.58, ry: 0.38 },
+    { rx: 0.66, ry: 0.27 },
+    { rx: 0.75, ry: 0.16 },
     { rx: 0.93, ry: 0.02 },
   ];
   let nodeEls = [];
@@ -2545,9 +2581,10 @@ function formatLargeNumber(n) {
 
   function updateGlobalStats() {
     const total = EXPERIENCES.reduce((s, e) => s + e.visits, 0);
-    const featured = EXPERIENCES[EXPERIENCES.length - 1];
+    const featured = EXPERIENCES.find(e => e.placeId === 94590879393563);
     if (featured && window.__updateFeatured) window.__updateFeatured(featured);
     if (window.__updateAboutStats) window.__updateAboutStats(total, EXPERIENCES.length);
+    if (window.__updateCounterTarget) window.__updateCounterTarget(total);
   }
 
   // Mobile list — built descending by visits (biggest showcase first)
@@ -2995,8 +3032,6 @@ function formatLargeNumber(n) {
   EXPERIENCES.forEach(exp => {
     enhanceWithRetry(exp).then(() => {
       updateGlobalStats();
-      const liveTotal = EXPERIENCES.reduce((s, e) => s + e.visits, 0);
-      if (window.__updateCounterTarget) window.__updateCounterTarget(liveTotal);
       if (nodeEls.length > 0) {
         if (exp.thumbnail) patchNodeThumbnail(exp);
         else if (exp.title !== 'LOADING') patchNodeLabels(exp);
@@ -3065,94 +3100,9 @@ function formatLargeNumber(n) {
 
 // ── TWEAKS PANEL ─────────────────────────────────────────────────────
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "counterTarget": "300M+",
-  "accentColor": "#e879f9",
-  "starCount": 320,
-  "counterDuration": 3800
-}/*EDITMODE-END*/;
-
-function TweaksApp() {
-  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
-  return (
-    <TweaksPanel>
-      <TweakSection label="Hero">
-        <TweakText label="Counter Target Label" value={tweaks.counterTarget} onChange={v => setTweak('counterTarget', v)} />
-        <TweakSlider label="Counter Speed (ms)" min={800} max={8000} step={200} value={tweaks.counterDuration} onChange={v => setTweak('counterDuration', v)} />
-      </TweakSection>
-      <TweakSection label="Visual">
-        <TweakColor label="Accent Color" value={tweaks.accentColor} onChange={v => setTweak('accentColor', v)} />
-        <TweakSlider label="Star Count" min={80} max={600} step={20} value={tweaks.starCount} onChange={v => setTweak('starCount', v)} />
-      </TweakSection>
-    </TweaksPanel>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
-</script>
-
-<div id="tweaks-root"></div>
-
-<script>
-// Motion polish: scroll reveals + pointer tilt
-(function () {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealGroups = [
-    '.section-header',
-    '#skills .skill-card',
-    '#about .about-left',
-    '#about .about-right',
-    '#featured .featured-thumb',
-    '#featured .featured-info',
-    '#accomplishments .achievement-card',
-    '#impact .impact-card',
-    '#contact .contact-copy',
-    '#contact .contact-card'
-  ];
-
-  const revealTargets = [];
-  revealGroups.forEach(selector => {
-    document.querySelectorAll(selector).forEach((el, index) => {
-      el.classList.add('revealable');
-      el.style.setProperty('--reveal-index', String(index % 5));
-      revealTargets.push(el);
-    });
-  });
-
-  const tiltSelector = '.skill-card, .achievement-card, .impact-card, .contact-card, .featured-thumb';
-  let activeTiltCard = null;
-
-  function resetTilt(card) {
-    card.style.setProperty('--tilt-x', '0deg');
-    card.style.setProperty('--tilt-y', '0deg');
-  }
-
-  function markTiltReady(el) {
-    if (el.matches?.(tiltSelector)) el.classList.add('tilt-ready');
-  }
-
-  document.addEventListener('pointermove', event => {
-    const target = event.target instanceof Element ? event.target : null;
-    const card = target?.closest(tiltSelector);
-    if (!card) {
-      if (activeTiltCard) resetTilt(activeTiltCard);
-      activeTiltCard = null;
-      return;
-    }
-
-    activeTiltCard = card;
-    card.classList.add('tilt-ready');
-    const rect = card.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    card.style.setProperty('--tilt-x', `${(-y * 5).toFixed(2)}deg`);
-    card.style.setProperty('--tilt-y', `${(x * 7).toFixed(2)}deg`);
-  });
-
-  document.addEventListener('pointerout', event => {
-    const target = event.target instanceof Element ? event.target : null;
-    const card = target?.closest(tiltSelector);
-    const nextTarget = event.relatedTarget instanceof Node ? event.relatedTarget : null;
-    if (!card || (nextTarget && card.contains(nextTarget))) return;
+  "counterTarget": "87.3B+",
+M+",
+t && card.contains(nextTarget))) return;
     resetTilt(card);
     if (activeTiltCard === card) activeTiltCard = null;
   });
